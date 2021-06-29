@@ -1,5 +1,6 @@
 namespace Web
 {
+    using Controller.Api;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -20,14 +21,14 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddApplicationPart(typeof(TreeController).Assembly);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Steiner", Version = "v1" });
             });
 
-            services.AddDbContext<Context>(p =>
-                p.UseSqlServer(Configuration.GetConnectionString("Main")));
+            services.AddDbContext<Context>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,9 +41,7 @@ namespace Web
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,4 +1,4 @@
-﻿namespace Web.Controllers
+﻿namespace Controller.Api
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@
     using Repository.Entities;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/trees")]
     public class TreeController : ControllerBase
     {
         private readonly Context _context;
