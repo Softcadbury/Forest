@@ -11,5 +11,12 @@
         }
 
         public DbSet<Tree> Trees { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Tree>().Property(x => x.Uuid).HasDefaultValueSql("NEWID()");
+        }
     }
 }

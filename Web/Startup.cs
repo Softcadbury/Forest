@@ -1,6 +1,7 @@
 namespace Web
 {
     using Controller.Api;
+    using Controller.Mapping;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ namespace Web
             });
 
             services.AddDbContext<Context>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
+
+            services.AddAutoMapper(typeof(MapperConfiguration));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -7,7 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{19AA8F8E-B150-4BAB-BEB7-F52D6ED51D5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controller\Controller.csproj", "{01F65C7B-1E65-46F8-90FA-D95C2C56F6FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Controller", "Controller\Controller.csproj", "{01F65C7B-1E65-46F8-90FA-D95C2C56F6FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Common", "1 - Common", "{F5CF7DE3-E30E-4622-AF0B-245F766432B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Repository", "2 - Repository", "{D2E3CB11-1931-4B1B-B191-7760667F9F08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Controller", "3 - Controller", "{ECD5E97E-D7D7-4C76-BCD4-AE14FC6B0462}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Web", "4 - Web", "{7A2D626A-CFC4-4FA4-B6FE-E4687D07A2B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +38,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC40C1D8-2AFB-4A74-BEC5-0C9AF26D74CA} = {7A2D626A-CFC4-4FA4-B6FE-E4687D07A2B3}
+		{19AA8F8E-B150-4BAB-BEB7-F52D6ED51D5F} = {D2E3CB11-1931-4B1B-B191-7760667F9F08}
+		{01F65C7B-1E65-46F8-90FA-D95C2C56F6FE} = {ECD5E97E-D7D7-4C76-BCD4-AE14FC6B0462}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB57F79D-47EB-4F5C-A212-EAE4E2CC21F0}
