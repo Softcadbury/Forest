@@ -1,7 +1,7 @@
 ﻿namespace Repository.Entities
 {
     using System.Collections.Generic;
-    using Repository.Base;
+    using Repository.Entities.Base;
 
     public class Tree : EntityBase
     {

@@ -1,6 +1,8 @@
 ﻿namespace Controller.ViewModels.Tree
 {
-    public class TreeViewModel
+    using Controller.ViewModels.Base;
+
+    public class TreeViewModel : ViewModelBase
     {
         public string Label { get; set; } = null!;
     }

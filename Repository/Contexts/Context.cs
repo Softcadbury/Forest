@@ -3,8 +3,8 @@
     using System;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
-    using Repository.Base;
     using Repository.Entities;
+    using Repository.Entities.Base;
 
     public class Context : DbContext
     {

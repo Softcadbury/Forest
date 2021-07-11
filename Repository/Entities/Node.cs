@@ -1,7 +1,7 @@
 ﻿namespace Repository.Entities
 {
     using System;
-    using Repository.Base;
+    using Repository.Entities.Base;
 
     public class Node : EntityBase
     {

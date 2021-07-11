@@ -1,4 +1,4 @@
-﻿namespace Repository.Base
+﻿namespace Repository.Entities.Base
 {
     using System;
     using System.ComponentModel.DataAnnotations;
