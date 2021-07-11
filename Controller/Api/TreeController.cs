@@ -47,10 +47,7 @@
         [HttpPost]
         public async Task<ActionResult<TreeViewModel>> Create(TreeViewModelPost treePost)
         {
-            Tree tree = new Tree
-            {
-                Label = treePost.Label,
-            };
+            Tree tree = new Tree(treePost.Label);
 
             _context.Trees.Add(tree);
             await _context.SaveChangesAsync();

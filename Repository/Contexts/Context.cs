@@ -1,6 +1,9 @@
 ﻿namespace Repository.Contexts
 {
+    using System;
+    using System.Linq;
     using Microsoft.EntityFrameworkCore;
+    using Repository.Base;
     using Repository.Entities;
 
     public class Context : DbContext
@@ -12,11 +15,19 @@
 
         public DbSet<Tree> Trees { get; set; } = null!;
 
+        public DbSet<Node> Nodes { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Tree>().Property(x => x.Uuid).HasDefaultValueSql("NEWID()");
+            foreach (Type type in modelBuilder.Model
+                                    .GetEntityTypes()
+                                    .Select(e => e.ClrType)
+                                    .Where(t => typeof(EntityBase).IsAssignableFrom(t)))
+            {
+                modelBuilder.Entity(type).Property(typeof(DateTime), "CreationDate").HasDefaultValueSql("GETUTCDATE()");
+            }
         }
     }
 }

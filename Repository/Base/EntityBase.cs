@@ -1,11 +1,15 @@
 ﻿namespace Repository.Base
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public abstract class EntityBase
     {
-        public long Id { get; set; }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Uuid { get; set; }
+
+        public DateTime CreationDate { get; set; }
     }
 }
