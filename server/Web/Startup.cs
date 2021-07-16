@@ -26,7 +26,7 @@ namespace Web
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Steiner", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Forest", Version = "v1" });
             });
 
             services.AddDbContext<Context>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
@@ -40,7 +40,7 @@ namespace Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Steiner v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Forest v1"));
             }
 
             app.UseHttpsRedirection();
