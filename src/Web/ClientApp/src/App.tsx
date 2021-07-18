@@ -7,9 +7,15 @@ function App() {
 
     const { data } = useGetTrees();
 
-    console.log(data);
-
-    return <div>hello world</div>;
+    return !data ? (
+        <></>
+    ) : (
+        <>
+            {data.map((p) => (
+                <div key={p.uuid}>{p.label}</div>
+            ))}
+        </>
+    );
 }
 
 export default App;

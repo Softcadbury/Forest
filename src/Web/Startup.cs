@@ -1,5 +1,6 @@
 namespace Web
 {
+    using System.Reflection;
     using Controller.Api;
     using Controller.Mapping;
     using Microsoft.AspNetCore.Builder;
@@ -11,6 +12,7 @@ namespace Web
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using Repository.Contexts;
+    using Swashbuckle.AspNetCore.SwaggerGen;
     using Web.Middlewares;
 
     public class Startup
@@ -26,9 +28,16 @@ namespace Web
         {
             services.AddControllersWithViews().AddApplicationPart(typeof(TreeController).Assembly);
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(configuration =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Forest", Version = "v1" });
+                configuration.SwaggerDoc("v1", new OpenApiInfo { Title = "Forest", Version = "v1" });
+                configuration.CustomOperationIds(p =>
+                {
+                    p.TryGetMethodInfo(out MethodInfo methodInfo);
+                    string controllerName = methodInfo.DeclaringType!.Name.Replace("Controller", string.Empty);
+                    string methodName = methodInfo.Name;
+                    return controllerName + methodName;
+                });
             });
 
             services.AddSpaStaticFiles(configuration =>

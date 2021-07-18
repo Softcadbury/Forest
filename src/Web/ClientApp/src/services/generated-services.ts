@@ -20,7 +20,7 @@ export class Client {
     /**
      * @return Success
      */
-    trees(uuid: string): Promise<TreeViewModel> {
+    treeGet(uuid: string): Promise<TreeViewModel> {
         let url_ = this.baseUrl + "/api/trees/{uuid}";
         if (uuid === undefined || uuid === null)
             throw new Error("The parameter 'uuid' must be defined.");
@@ -35,11 +35,11 @@ export class Client {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processTrees(_response);
+            return this.processTreeGet(_response);
         });
     }
 
-    protected processTrees(response: Response): Promise<TreeViewModel> {
+    protected processTreeGet(response: Response): Promise<TreeViewModel> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -61,7 +61,7 @@ export class Client {
      * @param body (optional) 
      * @return Success
      */
-    trees2(uuid: string, body: TreeViewModelPut | undefined): Promise<Tree> {
+    treeUpdate(uuid: string, body: TreeViewModelPut | undefined): Promise<Tree> {
         let url_ = this.baseUrl + "/api/trees/{uuid}";
         if (uuid === undefined || uuid === null)
             throw new Error("The parameter 'uuid' must be defined.");
@@ -80,11 +80,11 @@ export class Client {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processTrees2(_response);
+            return this.processTreeUpdate(_response);
         });
     }
 
-    protected processTrees2(response: Response): Promise<Tree> {
+    protected processTreeUpdate(response: Response): Promise<Tree> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -105,7 +105,7 @@ export class Client {
     /**
      * @return Success
      */
-    trees3(uuid: string): Promise<void> {
+    treeDelete(uuid: string): Promise<void> {
         let url_ = this.baseUrl + "/api/trees/{uuid}";
         if (uuid === undefined || uuid === null)
             throw new Error("The parameter 'uuid' must be defined.");
@@ -119,11 +119,11 @@ export class Client {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processTrees3(_response);
+            return this.processTreeDelete(_response);
         });
     }
 
-    protected processTrees3(response: Response): Promise<void> {
+    protected processTreeDelete(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -141,7 +141,7 @@ export class Client {
     /**
      * @return Success
      */
-    treesAll(): Promise<Tree[]> {
+    treeGetAll(): Promise<Tree[]> {
         let url_ = this.baseUrl + "/api/trees";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -153,11 +153,11 @@ export class Client {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processTreesAll(_response);
+            return this.processTreeGetAll(_response);
         });
     }
 
-    protected processTreesAll(response: Response): Promise<Tree[]> {
+    protected processTreeGetAll(response: Response): Promise<Tree[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -186,7 +186,7 @@ export class Client {
      * @param body (optional) 
      * @return Success
      */
-    trees4(body: TreeViewModelPost | undefined): Promise<TreeViewModel> {
+    treeCreate(body: TreeViewModelPost | undefined): Promise<TreeViewModel> {
         let url_ = this.baseUrl + "/api/trees";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -202,11 +202,11 @@ export class Client {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processTrees4(_response);
+            return this.processTreeCreate(_response);
         });
     }
 
-    protected processTrees4(response: Response): Promise<TreeViewModel> {
+    protected processTreeCreate(response: Response): Promise<TreeViewModel> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
