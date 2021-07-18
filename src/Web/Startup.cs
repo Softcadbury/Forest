@@ -11,6 +11,7 @@ namespace Web
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using Repository.Contexts;
+    using Web.Middlewares;
 
     public class Startup
     {
@@ -53,6 +54,8 @@ namespace Web
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseMiddleware<GenerateTypescriptServicesMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
