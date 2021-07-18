@@ -1,4 +1,12 @@
 import { useQueryStore } from "./query-store/query-store";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import styled from "styled-components";
+import { CircularProgress } from "@material-ui/core";
+
+const StyledCard = styled(Card)`
+    max-width: 300px;
+`;
 
 function App() {
     const {
@@ -8,11 +16,13 @@ function App() {
     const { data } = useGetTrees();
 
     return !data ? (
-        <></>
+        <CircularProgress />
     ) : (
         <>
             {data.map((p) => (
-                <div key={p.uuid}>{p.label}</div>
+                <StyledCard key={p.uuid}>
+                    <CardContent>{p.label}</CardContent>
+                </StyledCard>
             ))}
         </>
     );
