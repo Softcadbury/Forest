@@ -1,30 +1,24 @@
-import { useQueryStore } from "./query-store/query-store";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import styled from "styled-components";
 import { CircularProgress } from "@material-ui/core";
+import { lazy, Suspense } from "react";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 
-const StyledCard = styled(Card)`
-    max-width: 300px;
-`;
+const Tree = lazy(() => import("./pages/tree/Tree"));
+const Trees = lazy(() => import("./pages/trees/Trees"));
 
 function App() {
-    const {
-        trees: { useGetTrees },
-    } = useQueryStore();
-
-    const { data } = useGetTrees();
-
-    return !data ? (
-        <CircularProgress />
-    ) : (
-        <>
-            {data.map((p) => (
-                <StyledCard key={p.uuid}>
-                    <CardContent>{p.label}</CardContent>
-                </StyledCard>
-            ))}
-        </>
+    return (
+        <BrowserRouter>
+            <Suspense fallback={<CircularProgress />}>
+                <Switch>
+                    <Route exact path="/">
+                        <Trees />
+                    </Route>
+                    <Route path="/tree">
+                        <Tree />
+                    </Route>
+                </Switch>
+            </Suspense>
+        </BrowserRouter>
     );
 }
 

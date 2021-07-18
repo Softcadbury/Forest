@@ -2,9 +2,7 @@
 {
     using System.IO;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Hosting;
     using NSwag;
     using NSwag.CodeGeneration.TypeScript;
 
@@ -18,9 +16,9 @@
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IWebHostEnvironment env)
+        public async Task Invoke(HttpContext context)
         {
-            if (!_isGenerated && env.IsDevelopment())
+            if (!_isGenerated)
             {
                 var document = await OpenApiDocument.FromUrlAsync("https://localhost:5001/swagger/v1/swagger.json");
                 var settings = new TypeScriptClientGeneratorSettings { ClassName = "{controller}Client" };
