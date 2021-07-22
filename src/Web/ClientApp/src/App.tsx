@@ -13,7 +13,10 @@ function App() {
                     <Route exact path="/">
                         <Trees />
                     </Route>
-                    <Route path="/tree">
+                    <Route path="/trees">
+                        <Trees />
+                    </Route>
+                    <Route path="/trees/:uuid">
                         <Tree />
                     </Route>
                 </Switch>

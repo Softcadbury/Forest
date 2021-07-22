@@ -17,11 +17,15 @@ function Trees() {
 
     if (!data) return <CircularProgress />;
 
-    return data.map((p) => (
-        <StyledCard key={p.uuid}>
-            <CardContent>{p.label}</CardContent>
-        </StyledCard>
-    ));
+    return (
+        <>
+            {data.map((p) => (
+                <StyledCard key={p.uuid}>
+                    <CardContent>{p.label}</CardContent>
+                </StyledCard>
+            ))}
+        </>
+    );
 }
 
 export default Trees;
