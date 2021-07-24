@@ -10,14 +10,14 @@ function App() {
         <BrowserRouter>
             <Suspense fallback={<CircularProgress />}>
                 <Switch>
-                    <Route exact path="/">
-                        <Trees />
+                    <Route path="/trees/:uuid">
+                        <Tree />
                     </Route>
                     <Route path="/trees">
                         <Trees />
                     </Route>
-                    <Route path="/trees/:uuid">
-                        <Tree />
+                    <Route exact path="/">
+                        <Trees />
                     </Route>
                 </Switch>
             </Suspense>

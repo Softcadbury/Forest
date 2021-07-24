@@ -1,5 +1,5 @@
-import treeQueryStore from "./tree-query-store";
+import treeQueryStore from "./tree/tree-query-store";
 
 export const useQueryStore = () => ({
-    trees: treeQueryStore,
+    treesStore: treeQueryStore,
 });

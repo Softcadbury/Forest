@@ -61,7 +61,7 @@ export class Client {
      * @param body (optional) 
      * @return Success
      */
-    treeUpdate(uuid: string, body: TreeViewModelPut | undefined): Promise<Tree> {
+    treeUpdate(uuid: string, body: TreeViewModelPut | undefined): Promise<TreeViewModel> {
         let url_ = this.baseUrl + "/api/trees/{uuid}";
         if (uuid === undefined || uuid === null)
             throw new Error("The parameter 'uuid' must be defined.");
@@ -84,14 +84,14 @@ export class Client {
         });
     }
 
-    protected processTreeUpdate(response: Response): Promise<Tree> {
+    protected processTreeUpdate(response: Response): Promise<TreeViewModel> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = Tree.fromJS(resultData200);
+            result200 = TreeViewModel.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -99,7 +99,7 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<Tree>(<any>null);
+        return Promise.resolve<TreeViewModel>(<any>null);
     }
 
     /**
@@ -141,7 +141,7 @@ export class Client {
     /**
      * @return Success
      */
-    treeGetAll(): Promise<Tree[]> {
+    treeGetAll(): Promise<TreeViewModel[]> {
         let url_ = this.baseUrl + "/api/trees";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -157,7 +157,7 @@ export class Client {
         });
     }
 
-    protected processTreeGetAll(response: Response): Promise<Tree[]> {
+    protected processTreeGetAll(response: Response): Promise<TreeViewModel[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -167,7 +167,7 @@ export class Client {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Tree.fromJS(item));
+                    result200!.push(TreeViewModel.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -179,7 +179,7 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<Tree[]>(<any>null);
+        return Promise.resolve<TreeViewModel[]>(<any>null);
     }
 
     /**
@@ -303,114 +303,6 @@ export class TreeViewModelPut implements ITreeViewModelPut {
 
 export interface ITreeViewModelPut {
     label: string;
-}
-
-export class Node implements INode {
-    uuid?: string;
-    creationDate?: Date;
-    tree?: Tree;
-    treeId?: string;
-    label?: string | undefined;
-
-    constructor(data?: INode) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.uuid = _data["uuid"];
-            this.creationDate = _data["creationDate"] ? new Date(_data["creationDate"].toString()) : <any>undefined;
-            this.tree = _data["tree"] ? Tree.fromJS(_data["tree"]) : <any>undefined;
-            this.treeId = _data["treeId"];
-            this.label = _data["label"];
-        }
-    }
-
-    static fromJS(data: any): Node {
-        data = typeof data === 'object' ? data : {};
-        let result = new Node();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["uuid"] = this.uuid;
-        data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
-        data["tree"] = this.tree ? this.tree.toJSON() : <any>undefined;
-        data["treeId"] = this.treeId;
-        data["label"] = this.label;
-        return data; 
-    }
-}
-
-export interface INode {
-    uuid?: string;
-    creationDate?: Date;
-    tree?: Tree;
-    treeId?: string;
-    label?: string | undefined;
-}
-
-export class Tree implements ITree {
-    uuid?: string;
-    creationDate?: Date;
-    label?: string | undefined;
-    nodes?: Node[] | undefined;
-
-    constructor(data?: ITree) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.uuid = _data["uuid"];
-            this.creationDate = _data["creationDate"] ? new Date(_data["creationDate"].toString()) : <any>undefined;
-            this.label = _data["label"];
-            if (Array.isArray(_data["nodes"])) {
-                this.nodes = [] as any;
-                for (let item of _data["nodes"])
-                    this.nodes!.push(Node.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): Tree {
-        data = typeof data === 'object' ? data : {};
-        let result = new Tree();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["uuid"] = this.uuid;
-        data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
-        data["label"] = this.label;
-        if (Array.isArray(this.nodes)) {
-            data["nodes"] = [];
-            for (let item of this.nodes)
-                data["nodes"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface ITree {
-    uuid?: string;
-    creationDate?: Date;
-    label?: string | undefined;
-    nodes?: Node[] | undefined;
 }
 
 export class TreeViewModelPost implements ITreeViewModelPost {

@@ -37,7 +37,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tree>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TreeViewModel>>> GetAll()
         {
             List<Tree> trees = await _context.Trees.ToListAsync();
 
@@ -56,7 +56,7 @@
         }
 
         [HttpPut("{uuid}")]
-        public async Task<ActionResult<Tree>> Update(Guid uuid, TreeViewModelPut treePut)
+        public async Task<ActionResult<TreeViewModel>> Update(Guid uuid, TreeViewModelPut treePut)
         {
             Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == uuid);
 
