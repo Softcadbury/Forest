@@ -3,16 +3,16 @@ import { Client, TreeViewModel } from "../../services/generated-services";
 import queryStoreKeys from "../query-store-keys";
 
 const useGet = (
-    uuid: string | undefined
+    id: string | undefined
 ): QueryObserverResult<TreeViewModel> => {
     const client = new Client();
 
     return useQuery({
         queryKey: queryStoreKeys.TREES_GET,
         queryFn: async () => {
-            return await client.treeGet(uuid!);
+            return await client.treeGet(id!);
         },
-        enabled: !!uuid,
+        enabled: !!id,
     });
 };
 

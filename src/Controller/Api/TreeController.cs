@@ -23,10 +23,10 @@
             _mapper = mapper;
         }
 
-        [HttpGet("{treeUuid}")]
-        public async Task<ActionResult<TreeViewModel>> Get(Guid treeUuid)
+        [HttpGet("{treeId}")]
+        public async Task<ActionResult<TreeViewModel>> Get(Guid treeId)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == treeUuid);
+            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
 
             if (tree == null)
             {
@@ -55,10 +55,10 @@
             return Ok(_mapper.Map<TreeViewModel>(tree));
         }
 
-        [HttpPut("{treeUuid}")]
-        public async Task<ActionResult<TreeViewModel>> Update(Guid treeUuid, TreeViewModelPut treePut)
+        [HttpPut("{treeId}")]
+        public async Task<ActionResult<TreeViewModel>> Update(Guid treeId, TreeViewModelPut treePut)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == treeUuid);
+            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
 
             if (tree == null)
             {
@@ -72,10 +72,10 @@
             return Ok(_mapper.Map<TreeViewModel>(tree));
         }
 
-        [HttpDelete("{treeUuid}")]
-        public async Task<IActionResult> Delete(Guid treeUuid)
+        [HttpDelete("{treeId}")]
+        public async Task<IActionResult> Delete(Guid treeId)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == treeUuid);
+            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
 
             if (tree != null)
             {

@@ -21,7 +21,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Entities.Node", b =>
                 {
-                    b.Property<Guid>("Uuid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -37,7 +37,7 @@ namespace Repository.Migrations
                     b.Property<Guid>("TreeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Uuid");
+                    b.HasKey("Id");
 
                     b.HasIndex("TreeId");
 
@@ -46,7 +46,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Entities.Tree", b =>
                 {
-                    b.Property<Guid>("Uuid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -59,7 +59,7 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Uuid");
+                    b.HasKey("Id");
 
                     b.ToTable("Trees");
                 });

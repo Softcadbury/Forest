@@ -15,9 +15,9 @@ function Trees() {
     return (
         <>
             {data.map((p) => (
-                <StyledCard key={p.uuid}>
+                <StyledCard key={p.id}>
                     <CardContent>
-                        <Button href={"/trees/" + p.uuid}>{p.label}</Button>
+                        <Button href={"/trees/" + p.id}>{p.label}</Button>
                     </CardContent>
                 </StyledCard>
             ))}

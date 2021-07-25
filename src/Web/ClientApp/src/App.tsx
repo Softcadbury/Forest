@@ -10,7 +10,7 @@ function App() {
         <BrowserRouter>
             <Suspense fallback={<CircularProgress />}>
                 <Switch>
-                    <Route path="/trees/:uuid">
+                    <Route path="/trees/:id">
                         <Tree />
                     </Route>
                     <Route path="/trees">

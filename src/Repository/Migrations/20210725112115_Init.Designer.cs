@@ -10,7 +10,7 @@ using Repository.Contexts;
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210711202959_Init")]
+    [Migration("20210725112115_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Entities.Node", b =>
                 {
-                    b.Property<Guid>("Uuid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -39,7 +39,7 @@ namespace Repository.Migrations
                     b.Property<Guid>("TreeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Uuid");
+                    b.HasKey("Id");
 
                     b.HasIndex("TreeId");
 
@@ -48,7 +48,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Entities.Tree", b =>
                 {
-                    b.Property<Guid>("Uuid")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -61,7 +61,7 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Uuid");
+                    b.HasKey("Id");
 
                     b.ToTable("Trees");
                 });

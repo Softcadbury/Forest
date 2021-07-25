@@ -11,32 +11,32 @@ namespace Repository.Migrations
                 name: "Trees",
                 columns: table => new
                 {
-                    Uuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Label = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Trees", x => x.Uuid);
+                    table.PrimaryKey("PK_Trees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Nodes",
                 columns: table => new
                 {
-                    Uuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TreeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Label = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Nodes", x => x.Uuid);
+                    table.PrimaryKey("PK_Nodes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Nodes_Trees_TreeId",
                         column: x => x.TreeId,
                         principalTable: "Trees",
-                        principalColumn: "Uuid",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

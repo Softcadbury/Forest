@@ -7,7 +7,7 @@
     {
         public Tree Tree { get; set; } = null!;
 
-        public Guid TreeId { get; set; } // Todo - rename to TreeUuid
+        public Guid TreeId { get; set; }
 
         public string Label { get; set; }
 

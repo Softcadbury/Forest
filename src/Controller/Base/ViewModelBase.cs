@@ -4,7 +4,7 @@
 
     public abstract class ViewModelBase
     {
-        public Guid Uuid { get; set; }
+        public Guid Id { get; set; }
 
         public DateTime CreationDate { get; set; }
     }

@@ -20,11 +20,11 @@ export class Client {
     /**
      * @return Success
      */
-    treeGet(treeUuid: string): Promise<TreeViewModel> {
-        let url_ = this.baseUrl + "/api/trees/{treeUuid}";
-        if (treeUuid === undefined || treeUuid === null)
-            throw new Error("The parameter 'treeUuid' must be defined.");
-        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+    treeGet(treeId: string): Promise<TreeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -61,11 +61,11 @@ export class Client {
      * @param body (optional) 
      * @return Success
      */
-    treeUpdate(treeUuid: string, body: TreeViewModelPut | undefined): Promise<TreeViewModel> {
-        let url_ = this.baseUrl + "/api/trees/{treeUuid}";
-        if (treeUuid === undefined || treeUuid === null)
-            throw new Error("The parameter 'treeUuid' must be defined.");
-        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+    treeUpdate(treeId: string, body: TreeViewModelPut | undefined): Promise<TreeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -105,11 +105,11 @@ export class Client {
     /**
      * @return Success
      */
-    treeDelete(treeUuid: string): Promise<void> {
-        let url_ = this.baseUrl + "/api/trees/{treeUuid}";
-        if (treeUuid === undefined || treeUuid === null)
-            throw new Error("The parameter 'treeUuid' must be defined.");
-        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+    treeDelete(treeId: string): Promise<void> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -227,14 +227,14 @@ export class Client {
     /**
      * @return Success
      */
-    treeNodeGet(treeUuid: string, nodeUuid: string): Promise<NodeViewModel> {
-        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes/{nodeUuid}";
-        if (treeUuid === undefined || treeUuid === null)
-            throw new Error("The parameter 'treeUuid' must be defined.");
-        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
-        if (nodeUuid === undefined || nodeUuid === null)
-            throw new Error("The parameter 'nodeUuid' must be defined.");
-        url_ = url_.replace("{nodeUuid}", encodeURIComponent("" + nodeUuid));
+    treeNodeGet(treeId: string, nodeId: string): Promise<NodeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}/nodes/{nodeId}";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
+        if (nodeId === undefined || nodeId === null)
+            throw new Error("The parameter 'nodeId' must be defined.");
+        url_ = url_.replace("{nodeId}", encodeURIComponent("" + nodeId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -270,11 +270,11 @@ export class Client {
     /**
      * @return Success
      */
-    treeNodeGetAll(treeUuid: string): Promise<NodeViewModel[]> {
-        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes";
-        if (treeUuid === undefined || treeUuid === null)
-            throw new Error("The parameter 'treeUuid' must be defined.");
-        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+    treeNodeGetAll(treeId: string): Promise<NodeViewModel[]> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}/nodes";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -318,11 +318,11 @@ export class Client {
      * @param body (optional) 
      * @return Success
      */
-    treeNodeCreate(treeUuid: string, body: NodeViewModelPost | undefined): Promise<NodeViewModel> {
-        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes";
-        if (treeUuid === undefined || treeUuid === null)
-            throw new Error("The parameter 'treeUuid' must be defined.");
-        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+    treeNodeCreate(treeId: string, body: NodeViewModelPost | undefined): Promise<NodeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}/nodes";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -360,22 +360,22 @@ export class Client {
     }
 
     /**
-     * @param nodeUuid (optional) 
+     * @param nodeId (optional) 
      * @param body (optional) 
      * @return Success
      */
-    treeNodeUpdate(treeUuid: string, nodeUuid: string | undefined, uuid: string, body: NodeViewModelPut | undefined): Promise<NodeViewModel> {
-        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes/{uuid}?";
-        if (treeUuid === undefined || treeUuid === null)
-            throw new Error("The parameter 'treeUuid' must be defined.");
-        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
-        if (uuid === undefined || uuid === null)
-            throw new Error("The parameter 'uuid' must be defined.");
-        url_ = url_.replace("{uuid}", encodeURIComponent("" + uuid));
-        if (nodeUuid === null)
-            throw new Error("The parameter 'nodeUuid' cannot be null.");
-        else if (nodeUuid !== undefined)
-            url_ += "nodeUuid=" + encodeURIComponent("" + nodeUuid) + "&";
+    treeNodeUpdate(treeId: string, nodeId: string | undefined, id: string, body: NodeViewModelPut | undefined): Promise<NodeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}/nodes/{id}?";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        if (nodeId === null)
+            throw new Error("The parameter 'nodeId' cannot be null.");
+        else if (nodeId !== undefined)
+            url_ += "nodeId=" + encodeURIComponent("" + nodeId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -413,21 +413,21 @@ export class Client {
     }
 
     /**
-     * @param nodeUuid (optional) 
+     * @param nodeId (optional) 
      * @return Success
      */
-    treeNodeDelete(treeUuid: string, nodeUuid: string | undefined, uuid: string): Promise<void> {
-        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes/{uuid}?";
-        if (treeUuid === undefined || treeUuid === null)
-            throw new Error("The parameter 'treeUuid' must be defined.");
-        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
-        if (uuid === undefined || uuid === null)
-            throw new Error("The parameter 'uuid' must be defined.");
-        url_ = url_.replace("{uuid}", encodeURIComponent("" + uuid));
-        if (nodeUuid === null)
-            throw new Error("The parameter 'nodeUuid' cannot be null.");
-        else if (nodeUuid !== undefined)
-            url_ += "nodeUuid=" + encodeURIComponent("" + nodeUuid) + "&";
+    treeNodeDelete(treeId: string, nodeId: string | undefined, id: string): Promise<void> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}/nodes/{id}?";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        if (nodeId === null)
+            throw new Error("The parameter 'nodeId' cannot be null.");
+        else if (nodeId !== undefined)
+            url_ += "nodeId=" + encodeURIComponent("" + nodeId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -458,7 +458,7 @@ export class Client {
 }
 
 export class TreeViewModel implements ITreeViewModel {
-    uuid?: string;
+    id?: string;
     creationDate?: Date;
     label?: string | undefined;
 
@@ -473,7 +473,7 @@ export class TreeViewModel implements ITreeViewModel {
 
     init(_data?: any) {
         if (_data) {
-            this.uuid = _data["uuid"];
+            this.id = _data["id"];
             this.creationDate = _data["creationDate"] ? new Date(_data["creationDate"].toString()) : <any>undefined;
             this.label = _data["label"];
         }
@@ -488,7 +488,7 @@ export class TreeViewModel implements ITreeViewModel {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["uuid"] = this.uuid;
+        data["id"] = this.id;
         data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
         data["label"] = this.label;
         return data; 
@@ -496,7 +496,7 @@ export class TreeViewModel implements ITreeViewModel {
 }
 
 export interface ITreeViewModel {
-    uuid?: string;
+    id?: string;
     creationDate?: Date;
     label?: string | undefined;
 }
@@ -574,7 +574,7 @@ export interface ITreeViewModelPost {
 }
 
 export class NodeViewModel implements INodeViewModel {
-    uuid?: string;
+    id?: string;
     creationDate?: Date;
     label?: string | undefined;
 
@@ -589,7 +589,7 @@ export class NodeViewModel implements INodeViewModel {
 
     init(_data?: any) {
         if (_data) {
-            this.uuid = _data["uuid"];
+            this.id = _data["id"];
             this.creationDate = _data["creationDate"] ? new Date(_data["creationDate"].toString()) : <any>undefined;
             this.label = _data["label"];
         }
@@ -604,7 +604,7 @@ export class NodeViewModel implements INodeViewModel {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["uuid"] = this.uuid;
+        data["id"] = this.id;
         data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
         data["label"] = this.label;
         return data; 
@@ -612,7 +612,7 @@ export class NodeViewModel implements INodeViewModel {
 }
 
 export interface INodeViewModel {
-    uuid?: string;
+    id?: string;
     creationDate?: Date;
     label?: string | undefined;
 }

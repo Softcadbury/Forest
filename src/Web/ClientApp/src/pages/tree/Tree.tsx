@@ -8,11 +8,11 @@ const StyledCard = styled(Card)`
 `;
 
 function Tree() {
-    const match = useRouteMatch<{ uuid: string }>("/trees/:uuid");
-    const uuid = match?.params.uuid;
+    const match = useRouteMatch<{ id: string }>("/trees/:id");
+    const id = match?.params.id;
 
     const { treesStore } = useQueryStore();
-    const { data } = treesStore.useGet(uuid);
+    const { data } = treesStore.useGet(id);
 
     if (!data) return <CircularProgress />;
 
