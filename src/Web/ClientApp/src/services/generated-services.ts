@@ -20,11 +20,11 @@ export class Client {
     /**
      * @return Success
      */
-    treeGet(uuid: string): Promise<TreeViewModel> {
-        let url_ = this.baseUrl + "/api/trees/{uuid}";
-        if (uuid === undefined || uuid === null)
-            throw new Error("The parameter 'uuid' must be defined.");
-        url_ = url_.replace("{uuid}", encodeURIComponent("" + uuid));
+    treeGet(treeUuid: string): Promise<TreeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeUuid}";
+        if (treeUuid === undefined || treeUuid === null)
+            throw new Error("The parameter 'treeUuid' must be defined.");
+        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -61,11 +61,11 @@ export class Client {
      * @param body (optional) 
      * @return Success
      */
-    treeUpdate(uuid: string, body: TreeViewModelPut | undefined): Promise<TreeViewModel> {
-        let url_ = this.baseUrl + "/api/trees/{uuid}";
-        if (uuid === undefined || uuid === null)
-            throw new Error("The parameter 'uuid' must be defined.");
-        url_ = url_.replace("{uuid}", encodeURIComponent("" + uuid));
+    treeUpdate(treeUuid: string, body: TreeViewModelPut | undefined): Promise<TreeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeUuid}";
+        if (treeUuid === undefined || treeUuid === null)
+            throw new Error("The parameter 'treeUuid' must be defined.");
+        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -105,11 +105,11 @@ export class Client {
     /**
      * @return Success
      */
-    treeDelete(uuid: string): Promise<void> {
-        let url_ = this.baseUrl + "/api/trees/{uuid}";
-        if (uuid === undefined || uuid === null)
-            throw new Error("The parameter 'uuid' must be defined.");
-        url_ = url_.replace("{uuid}", encodeURIComponent("" + uuid));
+    treeDelete(treeUuid: string): Promise<void> {
+        let url_ = this.baseUrl + "/api/trees/{treeUuid}";
+        if (treeUuid === undefined || treeUuid === null)
+            throw new Error("The parameter 'treeUuid' must be defined.");
+        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -222,6 +222,238 @@ export class Client {
             });
         }
         return Promise.resolve<TreeViewModel>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    treeNodeGet(treeUuid: string, nodeUuid: string): Promise<NodeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes/{nodeUuid}";
+        if (treeUuid === undefined || treeUuid === null)
+            throw new Error("The parameter 'treeUuid' must be defined.");
+        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+        if (nodeUuid === undefined || nodeUuid === null)
+            throw new Error("The parameter 'nodeUuid' must be defined.");
+        url_ = url_.replace("{nodeUuid}", encodeURIComponent("" + nodeUuid));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTreeNodeGet(_response);
+        });
+    }
+
+    protected processTreeNodeGet(response: Response): Promise<NodeViewModel> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = NodeViewModel.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<NodeViewModel>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    treeNodeGetAll(treeUuid: string): Promise<NodeViewModel[]> {
+        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes";
+        if (treeUuid === undefined || treeUuid === null)
+            throw new Error("The parameter 'treeUuid' must be defined.");
+        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTreeNodeGetAll(_response);
+        });
+    }
+
+    protected processTreeNodeGetAll(response: Response): Promise<NodeViewModel[]> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(NodeViewModel.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<NodeViewModel[]>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    treeNodeCreate(treeUuid: string, body: NodeViewModelPost | undefined): Promise<NodeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes";
+        if (treeUuid === undefined || treeUuid === null)
+            throw new Error("The parameter 'treeUuid' must be defined.");
+        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTreeNodeCreate(_response);
+        });
+    }
+
+    protected processTreeNodeCreate(response: Response): Promise<NodeViewModel> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = NodeViewModel.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<NodeViewModel>(<any>null);
+    }
+
+    /**
+     * @param nodeUuid (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    treeNodeUpdate(treeUuid: string, nodeUuid: string | undefined, uuid: string, body: NodeViewModelPut | undefined): Promise<NodeViewModel> {
+        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes/{uuid}?";
+        if (treeUuid === undefined || treeUuid === null)
+            throw new Error("The parameter 'treeUuid' must be defined.");
+        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+        if (uuid === undefined || uuid === null)
+            throw new Error("The parameter 'uuid' must be defined.");
+        url_ = url_.replace("{uuid}", encodeURIComponent("" + uuid));
+        if (nodeUuid === null)
+            throw new Error("The parameter 'nodeUuid' cannot be null.");
+        else if (nodeUuid !== undefined)
+            url_ += "nodeUuid=" + encodeURIComponent("" + nodeUuid) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTreeNodeUpdate(_response);
+        });
+    }
+
+    protected processTreeNodeUpdate(response: Response): Promise<NodeViewModel> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = NodeViewModel.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<NodeViewModel>(<any>null);
+    }
+
+    /**
+     * @param nodeUuid (optional) 
+     * @return Success
+     */
+    treeNodeDelete(treeUuid: string, nodeUuid: string | undefined, uuid: string): Promise<void> {
+        let url_ = this.baseUrl + "/api/trees/{treeUuid}/nodes/{uuid}?";
+        if (treeUuid === undefined || treeUuid === null)
+            throw new Error("The parameter 'treeUuid' must be defined.");
+        url_ = url_.replace("{treeUuid}", encodeURIComponent("" + treeUuid));
+        if (uuid === undefined || uuid === null)
+            throw new Error("The parameter 'uuid' must be defined.");
+        url_ = url_.replace("{uuid}", encodeURIComponent("" + uuid));
+        if (nodeUuid === null)
+            throw new Error("The parameter 'nodeUuid' cannot be null.");
+        else if (nodeUuid !== undefined)
+            url_ += "nodeUuid=" + encodeURIComponent("" + nodeUuid) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "DELETE",
+            headers: {
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTreeNodeDelete(_response);
+        });
+    }
+
+    protected processTreeNodeDelete(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(<any>null);
     }
 }
 
@@ -338,6 +570,122 @@ export class TreeViewModelPost implements ITreeViewModelPost {
 }
 
 export interface ITreeViewModelPost {
+    label: string;
+}
+
+export class NodeViewModel implements INodeViewModel {
+    uuid?: string;
+    creationDate?: Date;
+    label?: string | undefined;
+
+    constructor(data?: INodeViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.uuid = _data["uuid"];
+            this.creationDate = _data["creationDate"] ? new Date(_data["creationDate"].toString()) : <any>undefined;
+            this.label = _data["label"];
+        }
+    }
+
+    static fromJS(data: any): NodeViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new NodeViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["uuid"] = this.uuid;
+        data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
+        data["label"] = this.label;
+        return data; 
+    }
+}
+
+export interface INodeViewModel {
+    uuid?: string;
+    creationDate?: Date;
+    label?: string | undefined;
+}
+
+export class NodeViewModelPost implements INodeViewModelPost {
+    label!: string;
+
+    constructor(data?: INodeViewModelPost) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.label = _data["label"];
+        }
+    }
+
+    static fromJS(data: any): NodeViewModelPost {
+        data = typeof data === 'object' ? data : {};
+        let result = new NodeViewModelPost();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["label"] = this.label;
+        return data; 
+    }
+}
+
+export interface INodeViewModelPost {
+    label: string;
+}
+
+export class NodeViewModelPut implements INodeViewModelPut {
+    label!: string;
+
+    constructor(data?: INodeViewModelPut) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.label = _data["label"];
+        }
+    }
+
+    static fromJS(data: any): NodeViewModelPut {
+        data = typeof data === 'object' ? data : {};
+        let result = new NodeViewModelPut();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["label"] = this.label;
+        return data; 
+    }
+}
+
+export interface INodeViewModelPut {
     label: string;
 }
 
