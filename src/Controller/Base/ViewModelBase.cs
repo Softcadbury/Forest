@@ -1,4 +1,4 @@
-﻿namespace Controller.ViewModels.Base
+﻿namespace Controller.Base
 {
     using System;
 

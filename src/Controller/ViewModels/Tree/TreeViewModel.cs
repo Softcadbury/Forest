@@ -1,6 +1,6 @@
 ﻿namespace Controller.ViewModels.Tree
 {
-    using Controller.ViewModels.Base;
+    using Controller.Base;
 
     public class TreeViewModel : ViewModelBase
     {

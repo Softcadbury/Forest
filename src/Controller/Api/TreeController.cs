@@ -4,15 +4,15 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
+    using Controller.Base;
     using Controller.ViewModels.Tree;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Repository.Contexts;
     using Repository.Entities;
 
-    [ApiController]
     [Route("api/trees")]
-    public class TreeController : ControllerBase
+    public class TreeController : CustomApiControllerBase
     {
         private readonly Context _context;
         private readonly IMapper _mapper;
@@ -23,10 +23,10 @@
             _mapper = mapper;
         }
 
-        [HttpGet("{uuid}")]
-        public async Task<ActionResult<TreeViewModel>> Get(Guid uuid)
+        [HttpGet("{treeUuid}")]
+        public async Task<ActionResult<TreeViewModel>> Get(Guid treeUuid)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == uuid);
+            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == treeUuid);
 
             if (tree == null)
             {
@@ -55,10 +55,10 @@
             return Ok(_mapper.Map<TreeViewModel>(tree));
         }
 
-        [HttpPut("{uuid}")]
-        public async Task<ActionResult<TreeViewModel>> Update(Guid uuid, TreeViewModelPut treePut)
+        [HttpPut("{treeUuid}")]
+        public async Task<ActionResult<TreeViewModel>> Update(Guid treeUuid, TreeViewModelPut treePut)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == uuid);
+            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == treeUuid);
 
             if (tree == null)
             {
@@ -72,10 +72,10 @@
             return Ok(_mapper.Map<TreeViewModel>(tree));
         }
 
-        [HttpDelete("{uuid}")]
-        public async Task<IActionResult> Delete(Guid uuid)
+        [HttpDelete("{treeUuid}")]
+        public async Task<IActionResult> Delete(Guid treeUuid)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == uuid);
+            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Uuid == treeUuid);
 
             if (tree != null)
             {
