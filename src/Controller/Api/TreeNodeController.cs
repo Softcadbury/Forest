@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Controller.Base;
+    using Controller.Helpers;
     using Controller.ViewModels.Node;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,14 @@
             List<Node> nodes = await _context.Nodes.Where(p => p.TreeId == treeId).ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<NodeViewModel>>(nodes));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<string>> GetPrettyPrint(Guid treeId)
+        {
+            List<Node> nodes = await _context.Nodes.Where(p => p.TreeId == treeId).ToListAsync();
+
+            return Ok(NodeHelper.PrettyPrintNodes(nodes));
         }
 
         [HttpPost]
