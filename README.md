@@ -6,6 +6,7 @@ Application and API to handle trees and nodes. Inspired from https://treelib.rea
 
 ## How to start the application
 
+- Go to /scripts and run the file `.ps1`
 - Go to /src/Web/ClientApp and run the command `yarn install`
 - Go to /src/Web and run the command `dotnet run`
 
