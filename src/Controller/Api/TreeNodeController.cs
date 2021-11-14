@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using AutoMapper;
     using Controller.Base;
@@ -49,9 +50,17 @@
         [HttpGet]
         public async Task<ActionResult<string>> GetPrettyPrint(Guid treeId)
         {
-            List<Node> nodes = await _context.Nodes.Where(p => p.TreeId == treeId).ToListAsync();
+            Tree? tree = await _context.Trees.Where(p => p.Id == treeId).SingleOrDefaultAsync();
 
-            return Ok(NodeHelper.PrettyPrintNodes(nodes));
+            if (tree == null)
+            {
+                return NotFound();
+            }
+
+            var stringBuilder = new StringBuilder();
+            NodeHelper.PrettyPrintTree(stringBuilder, tree);
+
+            return Ok(stringBuilder.ToString());
         }
 
         [HttpPost]
