@@ -20,7 +20,7 @@ export class Client {
     /**
      * @return Success
      */
-    treeGet(treeId: string): Promise<TreeViewModel> {
+    treeGet(treeId: string): Promise<Tree> {
         let url_ = this.baseUrl + "/api/trees/{treeId}";
         if (treeId === undefined || treeId === null)
             throw new Error("The parameter 'treeId' must be defined.");
@@ -39,14 +39,14 @@ export class Client {
         });
     }
 
-    protected processTreeGet(response: Response): Promise<TreeViewModel> {
+    protected processTreeGet(response: Response): Promise<Tree> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TreeViewModel.fromJS(resultData200);
+            result200 = Tree.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -54,14 +54,14 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<TreeViewModel>(<any>null);
+        return Promise.resolve<Tree>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    treeUpdate(treeId: string, body: TreeViewModelPut | undefined): Promise<TreeViewModel> {
+    treeUpdate(treeId: string, body: TreePut | undefined): Promise<Tree> {
         let url_ = this.baseUrl + "/api/trees/{treeId}";
         if (treeId === undefined || treeId === null)
             throw new Error("The parameter 'treeId' must be defined.");
@@ -84,14 +84,14 @@ export class Client {
         });
     }
 
-    protected processTreeUpdate(response: Response): Promise<TreeViewModel> {
+    protected processTreeUpdate(response: Response): Promise<Tree> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TreeViewModel.fromJS(resultData200);
+            result200 = Tree.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -99,7 +99,7 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<TreeViewModel>(<any>null);
+        return Promise.resolve<Tree>(<any>null);
     }
 
     /**
@@ -141,7 +141,7 @@ export class Client {
     /**
      * @return Success
      */
-    treeGetAll(): Promise<TreeViewModel[]> {
+    treeGetAll(): Promise<Tree[]> {
         let url_ = this.baseUrl + "/api/trees";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -157,7 +157,7 @@ export class Client {
         });
     }
 
-    protected processTreeGetAll(response: Response): Promise<TreeViewModel[]> {
+    protected processTreeGetAll(response: Response): Promise<Tree[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -167,7 +167,7 @@ export class Client {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(TreeViewModel.fromJS(item));
+                    result200!.push(Tree.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -179,14 +179,14 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<TreeViewModel[]>(<any>null);
+        return Promise.resolve<Tree[]>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    treeCreate(body: TreeViewModelPost | undefined): Promise<TreeViewModel> {
+    treeCreate(body: TreePost | undefined): Promise<Tree> {
         let url_ = this.baseUrl + "/api/trees";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -206,14 +206,14 @@ export class Client {
         });
     }
 
-    protected processTreeCreate(response: Response): Promise<TreeViewModel> {
+    protected processTreeCreate(response: Response): Promise<Tree> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TreeViewModel.fromJS(resultData200);
+            result200 = Tree.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -221,13 +221,13 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<TreeViewModel>(<any>null);
+        return Promise.resolve<Tree>(<any>null);
     }
 
     /**
      * @return Success
      */
-    treeNodeGet(treeId: string, nodeId: string): Promise<NodeViewModel> {
+    treeNodeGet(treeId: string, nodeId: string): Promise<Node> {
         let url_ = this.baseUrl + "/api/trees/{treeId}/nodes/{nodeId}";
         if (treeId === undefined || treeId === null)
             throw new Error("The parameter 'treeId' must be defined.");
@@ -249,14 +249,14 @@ export class Client {
         });
     }
 
-    protected processTreeNodeGet(response: Response): Promise<NodeViewModel> {
+    protected processTreeNodeGet(response: Response): Promise<Node> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = NodeViewModel.fromJS(resultData200);
+            result200 = Node.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -264,13 +264,13 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<NodeViewModel>(<any>null);
+        return Promise.resolve<Node>(<any>null);
     }
 
     /**
      * @return Success
      */
-    treeNodeGetAll(treeId: string): Promise<NodeViewModel[]> {
+    treeNodeGetAll(treeId: string): Promise<Node[]> {
         let url_ = this.baseUrl + "/api/trees/{treeId}/nodes";
         if (treeId === undefined || treeId === null)
             throw new Error("The parameter 'treeId' must be defined.");
@@ -289,7 +289,7 @@ export class Client {
         });
     }
 
-    protected processTreeNodeGetAll(response: Response): Promise<NodeViewModel[]> {
+    protected processTreeNodeGetAll(response: Response): Promise<Node[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -299,7 +299,7 @@ export class Client {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(NodeViewModel.fromJS(item));
+                    result200!.push(Node.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -311,14 +311,14 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<NodeViewModel[]>(<any>null);
+        return Promise.resolve<Node[]>(<any>null);
     }
 
     /**
      * @param body (optional) 
      * @return Success
      */
-    treeNodeCreate(treeId: string, body: NodeViewModelPost | undefined): Promise<NodeViewModel> {
+    treeNodeCreate(treeId: string, body: NodePost | undefined): Promise<Node> {
         let url_ = this.baseUrl + "/api/trees/{treeId}/nodes";
         if (treeId === undefined || treeId === null)
             throw new Error("The parameter 'treeId' must be defined.");
@@ -341,14 +341,14 @@ export class Client {
         });
     }
 
-    protected processTreeNodeCreate(response: Response): Promise<NodeViewModel> {
+    protected processTreeNodeCreate(response: Response): Promise<Node> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = NodeViewModel.fromJS(resultData200);
+            result200 = Node.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -356,7 +356,47 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<NodeViewModel>(<any>null);
+        return Promise.resolve<Node>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    treeNodeGetPrettyPrint(treeId: string): Promise<string> {
+        let url_ = this.baseUrl + "/api/trees/{treeId}/nodes/prettyPrint";
+        if (treeId === undefined || treeId === null)
+            throw new Error("The parameter 'treeId' must be defined.");
+        url_ = url_.replace("{treeId}", encodeURIComponent("" + treeId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTreeNodeGetPrettyPrint(_response);
+        });
+    }
+
+    protected processTreeNodeGetPrettyPrint(response: Response): Promise<string> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<string>(<any>null);
     }
 
     /**
@@ -364,7 +404,7 @@ export class Client {
      * @param body (optional) 
      * @return Success
      */
-    treeNodeUpdate(treeId: string, nodeId: string | undefined, id: string, body: NodeViewModelPut | undefined): Promise<NodeViewModel> {
+    treeNodeUpdate(treeId: string, nodeId: string | undefined, id: string, body: NodePut | undefined): Promise<Node> {
         let url_ = this.baseUrl + "/api/trees/{treeId}/nodes/{id}?";
         if (treeId === undefined || treeId === null)
             throw new Error("The parameter 'treeId' must be defined.");
@@ -394,14 +434,14 @@ export class Client {
         });
     }
 
-    protected processTreeNodeUpdate(response: Response): Promise<NodeViewModel> {
+    protected processTreeNodeUpdate(response: Response): Promise<Node> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = NodeViewModel.fromJS(resultData200);
+            result200 = Node.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -409,7 +449,7 @@ export class Client {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<NodeViewModel>(<any>null);
+        return Promise.resolve<Node>(<any>null);
     }
 
     /**
@@ -457,12 +497,12 @@ export class Client {
     }
 }
 
-export class TreeViewModel implements ITreeViewModel {
+export class Tree implements ITree {
     id?: string;
     creationDate?: Date;
     label?: string | undefined;
 
-    constructor(data?: ITreeViewModel) {
+    constructor(data?: ITree) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -479,9 +519,9 @@ export class TreeViewModel implements ITreeViewModel {
         }
     }
 
-    static fromJS(data: any): TreeViewModel {
+    static fromJS(data: any): Tree {
         data = typeof data === 'object' ? data : {};
-        let result = new TreeViewModel();
+        let result = new Tree();
         result.init(data);
         return result;
     }
@@ -495,16 +535,16 @@ export class TreeViewModel implements ITreeViewModel {
     }
 }
 
-export interface ITreeViewModel {
+export interface ITree {
     id?: string;
     creationDate?: Date;
     label?: string | undefined;
 }
 
-export class TreeViewModelPut implements ITreeViewModelPut {
+export class TreePut implements ITreePut {
     label!: string;
 
-    constructor(data?: ITreeViewModelPut) {
+    constructor(data?: ITreePut) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -519,9 +559,9 @@ export class TreeViewModelPut implements ITreeViewModelPut {
         }
     }
 
-    static fromJS(data: any): TreeViewModelPut {
+    static fromJS(data: any): TreePut {
         data = typeof data === 'object' ? data : {};
-        let result = new TreeViewModelPut();
+        let result = new TreePut();
         result.init(data);
         return result;
     }
@@ -533,14 +573,14 @@ export class TreeViewModelPut implements ITreeViewModelPut {
     }
 }
 
-export interface ITreeViewModelPut {
+export interface ITreePut {
     label: string;
 }
 
-export class TreeViewModelPost implements ITreeViewModelPost {
+export class TreePost implements ITreePost {
     label!: string;
 
-    constructor(data?: ITreeViewModelPost) {
+    constructor(data?: ITreePost) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -555,9 +595,9 @@ export class TreeViewModelPost implements ITreeViewModelPost {
         }
     }
 
-    static fromJS(data: any): TreeViewModelPost {
+    static fromJS(data: any): TreePost {
         data = typeof data === 'object' ? data : {};
-        let result = new TreeViewModelPost();
+        let result = new TreePost();
         result.init(data);
         return result;
     }
@@ -569,16 +609,16 @@ export class TreeViewModelPost implements ITreeViewModelPost {
     }
 }
 
-export interface ITreeViewModelPost {
+export interface ITreePost {
     label: string;
 }
 
-export class NodeViewModel implements INodeViewModel {
+export class Node implements INode {
     id?: string;
     creationDate?: Date;
     label?: string | undefined;
 
-    constructor(data?: INodeViewModel) {
+    constructor(data?: INode) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -595,9 +635,9 @@ export class NodeViewModel implements INodeViewModel {
         }
     }
 
-    static fromJS(data: any): NodeViewModel {
+    static fromJS(data: any): Node {
         data = typeof data === 'object' ? data : {};
-        let result = new NodeViewModel();
+        let result = new Node();
         result.init(data);
         return result;
     }
@@ -611,16 +651,16 @@ export class NodeViewModel implements INodeViewModel {
     }
 }
 
-export interface INodeViewModel {
+export interface INode {
     id?: string;
     creationDate?: Date;
     label?: string | undefined;
 }
 
-export class NodeViewModelPost implements INodeViewModelPost {
+export class NodePost implements INodePost {
     label!: string;
 
-    constructor(data?: INodeViewModelPost) {
+    constructor(data?: INodePost) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -635,9 +675,9 @@ export class NodeViewModelPost implements INodeViewModelPost {
         }
     }
 
-    static fromJS(data: any): NodeViewModelPost {
+    static fromJS(data: any): NodePost {
         data = typeof data === 'object' ? data : {};
-        let result = new NodeViewModelPost();
+        let result = new NodePost();
         result.init(data);
         return result;
     }
@@ -649,14 +689,14 @@ export class NodeViewModelPost implements INodeViewModelPost {
     }
 }
 
-export interface INodeViewModelPost {
+export interface INodePost {
     label: string;
 }
 
-export class NodeViewModelPut implements INodeViewModelPut {
+export class NodePut implements INodePut {
     label!: string;
 
-    constructor(data?: INodeViewModelPut) {
+    constructor(data?: INodePut) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -671,9 +711,9 @@ export class NodeViewModelPut implements INodeViewModelPut {
         }
     }
 
-    static fromJS(data: any): NodeViewModelPut {
+    static fromJS(data: any): NodePut {
         data = typeof data === 'object' ? data : {};
-        let result = new NodeViewModelPut();
+        let result = new NodePut();
         result.init(data);
         return result;
     }
@@ -685,7 +725,7 @@ export class NodeViewModelPut implements INodeViewModelPut {
     }
 }
 
-export interface INodeViewModelPut {
+export interface INodePut {
     label: string;
 }
 

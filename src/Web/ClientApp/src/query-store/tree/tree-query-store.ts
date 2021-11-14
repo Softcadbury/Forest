@@ -1,10 +1,8 @@
 import { QueryObserverResult, useQuery } from "react-query";
-import { Client, TreeViewModel } from "../../services/generated-services";
+import { Client, Tree } from "../../services/generated-services";
 import queryStoreKeys from "../query-store-keys";
 
-const useGet = (
-    id: string | undefined
-): QueryObserverResult<TreeViewModel> => {
+const useGet = (id: string | undefined): QueryObserverResult<Tree> => {
     const client = new Client();
 
     return useQuery({
@@ -16,7 +14,7 @@ const useGet = (
     });
 };
 
-const useGetAll = (): QueryObserverResult<TreeViewModel[]> => {
+const useGetAll = (): QueryObserverResult<Tree[]> => {
     const client = new Client();
 
     return useQuery({

@@ -47,7 +47,7 @@
             return Ok(_mapper.Map<IEnumerable<NodeViewModel>>(nodes));
         }
 
-        [HttpGet]
+        [HttpGet("prettyPrint")]
         public async Task<ActionResult<string>> GetPrettyPrint(Guid treeId)
         {
             Tree? tree = await _context.Trees.Where(p => p.Id == treeId).SingleOrDefaultAsync();

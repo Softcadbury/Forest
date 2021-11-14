@@ -38,6 +38,7 @@ namespace Web
                     string methodName = methodInfo.Name;
                     return controllerName + methodName;
                 });
+                configuration.CustomSchemaIds(p => p.Name.Replace("ViewModel", string.Empty));
             });
 
             services.AddSpaStaticFiles(configuration =>
@@ -56,7 +57,11 @@ namespace Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Forest v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Forest v1");
+                    c.DefaultModelsExpandDepth(-1); // Remove schemas section
+                });
             }
             else
             {
