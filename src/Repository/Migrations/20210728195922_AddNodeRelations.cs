@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Repository.Migrations
+﻿namespace Repository.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddNodeRelations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -7,7 +7,7 @@
     {
         public string Label { get; set; }
 
-        public List<Node> Nodes { get; set; }
+        public List<Node> Nodes { get; }
 
         public Tree(string label)
         {

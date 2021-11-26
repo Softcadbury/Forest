@@ -18,16 +18,16 @@
 
             var nodes = new List<Node>
             {
-                CreateNode(tree, "node 1", new List<Node>
-                {
+                CreateNode(
+                    tree,
+                    "node 1",
                     CreateNode(tree, "node 1.1"),
-                    CreateNode(tree, "node 1.2", new List<Node>
-                    {
-                        CreateNode(tree, "node 1.2.1") ,
-                        CreateNode(tree, "node 1.2.2")
-                    })
-                }),
-                CreateNode(tree, "node 2")
+                    CreateNode(
+                        tree,
+                        "node 1.2",
+                        CreateNode(tree, "node 1.2.1"),
+                        CreateNode(tree, "node 1.2.2"))),
+                CreateNode(tree, "node 2"),
             };
 
             tree.Nodes.AddRange(nodes);
@@ -59,13 +59,13 @@
 
             var recursiveNode1 = CreateNode(tree, "node rec 1");
             var recursiveNode2 = CreateNode(tree, "node rec 2");
-            recursiveNode1.Children = new List<Node> { recursiveNode2 };
-            recursiveNode2.Children = new List<Node> { recursiveNode1 };
+            recursiveNode1.Children.Add(recursiveNode1);
+            recursiveNode2.Children.Add(recursiveNode1);
 
             var nodes = new List<Node>
             {
-                CreateNode(tree, "node 1", new List<Node> { recursiveNode1, recursiveNode2 }),
-                CreateNode(tree, "node 2")
+                CreateNode(tree, "node 1", recursiveNode1, recursiveNode2),
+                CreateNode(tree, "node 2"),
             };
 
             tree.Nodes.AddRange(nodes);
@@ -89,14 +89,17 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        private Tree CreateTree(string label)
+        private static Tree CreateTree(string label)
         {
             return new Tree(label) { Id = Guid.NewGuid() };
         }
 
-        private Node CreateNode(Tree tree, string label, List<Node>? children = null)
+        private static Node CreateNode(Tree tree, string label, params Node[] children)
         {
-            return new Node(tree.Id, label) { Id = Guid.NewGuid(), Children = children ?? new List<Node>() };
+            var node = new Node(tree.Id, label) { Id = Guid.NewGuid() };
+            node.Children.AddRange(children);
+
+            return node;
         }
     }
 }

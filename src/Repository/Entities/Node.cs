@@ -16,7 +16,7 @@
 
         public Guid? ParentId { get; set; }
 
-        public List<Node> Children { get; set; }
+        public List<Node> Children { get; }
 
         public Node(Guid treeId, string label)
         {

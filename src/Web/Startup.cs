@@ -1,5 +1,6 @@
 namespace Web
 {
+    using System;
     using System.Reflection;
     using Controller.Api;
     using Controller.Mapping;
@@ -34,11 +35,11 @@ namespace Web
                 configuration.CustomOperationIds(p =>
                 {
                     p.TryGetMethodInfo(out MethodInfo methodInfo);
-                    string controllerName = methodInfo.DeclaringType!.Name.Replace("Controller", string.Empty);
+                    string controllerName = methodInfo.DeclaringType!.Name.Replace("Controller", string.Empty, StringComparison.InvariantCultureIgnoreCase);
                     string methodName = methodInfo.Name;
                     return controllerName + methodName;
                 });
-                configuration.CustomSchemaIds(p => p.Name.Replace("ViewModel", string.Empty));
+                configuration.CustomSchemaIds(p => p.Name.Replace("ViewModel", string.Empty, StringComparison.InvariantCultureIgnoreCase));
             });
 
             services.AddSpaStaticFiles(configuration =>

@@ -8,8 +8,8 @@
 
     public class GenerateTypescriptServicesMiddleware
     {
-        private readonly RequestDelegate _next;
         private static bool _isGenerated;
+        private readonly RequestDelegate _next;
 
         public GenerateTypescriptServicesMiddleware(RequestDelegate next)
         {
