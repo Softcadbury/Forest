@@ -58,7 +58,7 @@
             }
 
             var stringBuilder = new StringBuilder();
-            NodeHelper.PrettyPrintTree(stringBuilder, tree);
+            TreeHelper.PrettyPrintTree(stringBuilder, tree);
 
             return Ok(stringBuilder.ToString());
         }

@@ -8,10 +8,10 @@
     using Repository.Entities;
 
     [TestFixture]
-    public sealed class TestNodeHelper
+    public sealed class TestTreeHelper
     {
         [Test]
-        public void NodeHelper_PrettyPrintTree()
+        public void TreeHelper_PrettyPrintTree()
         {
             // Arrange
             var tree = CreateTree("tree");
@@ -35,7 +35,7 @@
             var stringBuilder = new StringBuilder();
 
             // Act
-            NodeHelper.PrettyPrintTree(stringBuilder, tree);
+            TreeHelper.PrettyPrintTree(stringBuilder, tree);
             string result = stringBuilder.ToString();
 
             // Assert
@@ -52,7 +52,7 @@
         }
 
         [Test]
-        public void NodeHelper_PrettyPrintTree_WithRecursiveNodes()
+        public void TreeHelper_PrettyPrintTree_WithRecursiveNodes()
         {
             // Arrange
             var tree = CreateTree("tree");
@@ -73,7 +73,7 @@
             var stringBuilder = new StringBuilder();
 
             // Act
-            NodeHelper.PrettyPrintTree(stringBuilder, tree);
+            TreeHelper.PrettyPrintTree(stringBuilder, tree);
             string result = stringBuilder.ToString();
 
             // Assert
