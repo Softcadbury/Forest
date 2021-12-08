@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
     using Controller.Helpers;
     using NUnit.Framework;
     using Repository.Entities;
@@ -32,20 +31,17 @@
 
             tree.Nodes.AddRange(nodes);
 
-            var stringBuilder = new StringBuilder();
-
             // Act
-            TreeHelper.PrettyPrintTree(stringBuilder, tree);
-            string result = stringBuilder.ToString();
+            string result = TreeHelper.PrettyPrintTree(tree);
 
             // Assert
             string expectedResult =
 @"tree
 ├── node 1
-    ├── node 1.1
-    └── node 1.2
-        ├── node 1.2.1
-        └── node 1.2.2
+|   ├── node 1.1
+|   └── node 1.2
+|       ├── node 1.2.1
+|       └── node 1.2.2
 └── node 2";
 
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -59,7 +55,7 @@
 
             var recursiveNode1 = CreateNode(tree, "node rec 1");
             var recursiveNode2 = CreateNode(tree, "node rec 2");
-            recursiveNode1.Children.Add(recursiveNode1);
+            recursiveNode1.Children.Add(recursiveNode2);
             recursiveNode2.Children.Add(recursiveNode1);
 
             var nodes = new List<Node>
@@ -70,20 +66,17 @@
 
             tree.Nodes.AddRange(nodes);
 
-            var stringBuilder = new StringBuilder();
-
             // Act
-            TreeHelper.PrettyPrintTree(stringBuilder, tree);
-            string result = stringBuilder.ToString();
+            string result = TreeHelper.PrettyPrintTree(tree);
 
             // Assert
             string expectedResult =
                 @"tree
 ├── node 1
-    ├── node rec 1
-        └── node rec 2
-            └── node rec 1
-    └── node rec 2
+|   ├── node rec 1
+|   |   └── node rec 2
+|   |       └── node rec 1
+|   └── node rec 2
 └── node 2";
 
             Assert.That(result, Is.EqualTo(expectedResult));

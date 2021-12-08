@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using AutoMapper;
     using Controller.Base;
@@ -57,10 +56,7 @@
                 return NotFound();
             }
 
-            var stringBuilder = new StringBuilder();
-            TreeHelper.PrettyPrintTree(stringBuilder, tree);
-
-            return Ok(stringBuilder.ToString());
+            return Ok(TreeHelper.PrettyPrintTree(tree));
         }
 
         [HttpPost]
