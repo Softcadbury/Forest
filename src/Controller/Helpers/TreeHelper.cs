@@ -12,61 +12,62 @@
         {
             var builder = new StringBuilder();
             var nodes = new List<(Node Node, int Level, bool IsLast)>();
-            var alreadyDisplayedNodes = new HashSet<Guid>();
 
             builder.Append(tree.Label);
 
             for (int i = 0; i < tree.Nodes.Count; i++)
             {
-                AddCurrentNode(nodes, node: tree.Nodes[i], level: 0, isLast: i == tree.Nodes.Count - 1);
-                PrettyPrintNode(builder, nodes, alreadyDisplayedNodes);
+                AddNodeToBranch(nodes, node: tree.Nodes[i], level: 0, isLast: i == tree.Nodes.Count - 1);
+                PrettyPrintNode(builder, nodes);
             }
 
             return builder.ToString();
         }
 
-        private static void PrettyPrintNode(StringBuilder builder, List<(Node Node, int Level, bool IsLast)> nodes, HashSet<Guid> alreadyDisplayedNodes)
+        private static void PrettyPrintNode(StringBuilder builder, List<(Node Node, int Level, bool IsLast)> branch)
         {
-            (Node currentNode, int currentNodeLevel, bool isCurrentNodeLast) = nodes.Last();
-            AppendCurrentNode(builder, nodes, currentNode, isCurrentNodeLast);
+            (Node node, int nodeLevel, bool isNodeLast) = branch.Last();
+            AppendNodeToStringBuilder(builder, branch, isNodeLast);
 
-            if (alreadyDisplayedNodes.Contains(currentNode.Id))
+            bool isNodeAlreadyDisplayed = branch.Take(branch.Count - 1).Select(p => p.Node.Id).Contains(node.Id);
+            if (isNodeAlreadyDisplayed)
             {
+                var infiniteNode = new Node(Guid.NewGuid(), "[...]");
+                AddNodeToBranch(branch, node: infiniteNode, level: nodeLevel + 1, isLast: isNodeLast);
+                AppendNodeToStringBuilder(builder, branch, isNodeLast);
                 return;
             }
 
-            alreadyDisplayedNodes.Add(currentNode.Id);
-
-            for (int i = 0; i < currentNode.Children.Count; i++)
+            for (int i = 0; i < node.Children.Count; i++)
             {
-                AddCurrentNode(nodes, node: currentNode.Children[i], level: currentNodeLevel + 1, isLast: i == currentNode.Children.Count - 1);
-                PrettyPrintNode(builder, nodes, alreadyDisplayedNodes);
+                AddNodeToBranch(branch, node: node.Children[i], level: nodeLevel + 1, isLast: i == node.Children.Count - 1);
+                PrettyPrintNode(builder, branch);
             }
         }
 
-        private static void AddCurrentNode(List<(Node Node, int Level, bool IsLast)> nodeLevels, Node node, int level, bool isLast)
+        private static void AddNodeToBranch(List<(Node Node, int Level, bool IsLast)> branch, Node node, int level, bool isLast)
         {
-            int numberOfNodesToRemove = nodeLevels.Count - level;
+            int numberOfNodesToRemove = branch.Count - level;
             if (numberOfNodesToRemove > 0)
             {
-                nodeLevels.RemoveRange(level, numberOfNodesToRemove);
+                branch.RemoveRange(level, numberOfNodesToRemove);
             }
 
-            nodeLevels.Add((node, level, isLast));
+            branch.Add((node, level, isLast));
         }
 
-        private static void AppendCurrentNode(StringBuilder builder, List<(Node Node, int Level, bool IsLast)> nodes, Node currentNode, bool isCurrentNodeLast)
+        private static void AppendNodeToStringBuilder(StringBuilder builder, List<(Node Node, int Level, bool IsLast)> branch, bool isNodeLast)
         {
             builder.Append(Environment.NewLine);
 
-            for (int i = 0; i < nodes.Count - 1; i++)
+            for (int i = 0; i < branch.Count - 1; i++)
             {
-                builder.Append(nodes[i].IsLast ? " " : "|");
+                builder.Append(branch[i].IsLast ? " " : "|");
                 builder.Append("   ");
             }
 
-            builder.Append(isCurrentNodeLast ? "└── " : "├── ");
-            builder.Append(currentNode.Label);
+            builder.Append(isNodeLast ? "└── " : "├── ");
+            builder.Append(branch[^1].Node.Label);
         }
     }
 }

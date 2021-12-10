@@ -76,7 +76,11 @@
 |   ├── node rec 1
 |   |   └── node rec 2
 |   |       └── node rec 1
+|   |           └── [...]
 |   └── node rec 2
+|       └── node rec 1
+|           └── node rec 2
+|               └── [...]
 └── node 2";
 
             Assert.That(result, Is.EqualTo(expectedResult));
