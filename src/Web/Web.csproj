@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Controller\Controller.csproj" />
+    <ProjectReference Include="..\Resources\Resources.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,6 +14,7 @@ namespace Web
     using Microsoft.OpenApi.Models;
     using Repository.Contexts;
     using Swashbuckle.AspNetCore.SwaggerGen;
+    using Web.Configurations;
     using Web.Middlewares;
 
     public class Startup
@@ -50,6 +51,8 @@ namespace Web
             services.AddDbContext<Context>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
 
             services.AddAutoMapper(typeof(MapperConfiguration));
+
+            services.ConfigureResources();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -96,6 +99,8 @@ namespace Web
                     spa.UseReactDevelopmentServer("start");
                 }
             });
+
+            app.ConfigureResources();
         }
     }
 }
