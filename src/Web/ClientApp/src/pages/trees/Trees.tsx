@@ -1,7 +1,8 @@
 import { useQueryStore } from "../../query-store/query-store";
 import styled from "styled-components";
 import { Button, CircularProgress, CardContent, Card } from "@material-ui/core";
-import AddTree from "./add/AddTree";
+import AddTreeModal from "./modals/AddTreeModal";
+import useBooleanState from "../../hooks/useBooleanState";
 
 const StyledCard = styled(Card)`
     max-width: 300px;
@@ -10,6 +11,8 @@ const StyledCard = styled(Card)`
 function Trees() {
     const { treesStore } = useQueryStore();
     const { data } = treesStore.useGetAll();
+
+    const [isAddTreeModalOpen, showAddTreeModal, hideAddTreeModal] = useBooleanState(false);
 
     if (!data) return <CircularProgress />;
 
@@ -24,10 +27,10 @@ function Trees() {
             ))}
             <StyledCard>
                 <CardContent>
-                    <Button href="/trees/add">+ Add</Button>
+                    <Button onClick={showAddTreeModal}>+ Add</Button>
                 </CardContent>
             </StyledCard>
-            <AddTree />
+            <AddTreeModal isOpen={isAddTreeModalOpen} handleClose={hideAddTreeModal} />
         </>
     );
 }

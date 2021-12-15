@@ -11,14 +11,14 @@
         public static string PrettyPrintTree(Tree tree)
         {
             var builder = new StringBuilder();
-            var nodes = new List<(Node Node, int Level, bool IsLast)>();
+            var branch = new List<(Node Node, int Level, bool IsLast)>();
 
             builder.Append(tree.Label);
 
             for (int i = 0; i < tree.Nodes.Count; i++)
             {
-                AddNodeToBranch(nodes, node: tree.Nodes[i], level: 0, isLast: i == tree.Nodes.Count - 1);
-                PrettyPrintNode(builder, nodes);
+                AddNodeToBranch(branch, node: tree.Nodes[i], level: 0, isLast: i == tree.Nodes.Count - 1);
+                PrettyPrintNode(builder, branch);
             }
 
             return builder.ToString();
@@ -29,7 +29,7 @@
             (Node node, int nodeLevel, bool isNodeLast) = branch.Last();
             AppendNodeToStringBuilder(builder, branch, isNodeLast);
 
-            bool isNodeAlreadyDisplayed = branch.Take(branch.Count - 1).Select(p => p.Node.Id).Contains(node.Id);
+            bool isNodeAlreadyDisplayed = branch.Take(branch.Count - 1).Any(p => p.Node.Id == node.Id);
             if (isNodeAlreadyDisplayed)
             {
                 var infiniteNode = new Node(Guid.NewGuid(), "[...]");
