@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Repository.Entities.Base;
 
-    public class Tree : EntityBase
+    public class Tree : TenantEntityBase
     {
         public string Label { get; set; }
 

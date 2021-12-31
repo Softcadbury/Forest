@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Repository.Entities.Base;
 
-    public class Node : EntityBase
+    public class Node : TenantEntityBase
     {
         public Tree? Tree { get; set; }
 
