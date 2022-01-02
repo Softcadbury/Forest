@@ -1,7 +1,5 @@
 ﻿namespace Controller.Tests.Helpers
 {
-    using System;
-    using System.Collections.Generic;
     using Controller.Helpers;
     using NUnit.Framework;
     using Repository.Entities;

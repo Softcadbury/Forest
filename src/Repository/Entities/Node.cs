@@ -1,7 +1,5 @@
 ﻿namespace Repository.Entities
 {
-    using System;
-    using System.Collections.Generic;
     using Repository.Entities.Base;
 
     public class Node : TenantEntityBase

@@ -1,7 +1,6 @@
 ﻿namespace Resources
 {
     using System.Globalization;
-    using System.Linq;
 
     public sealed class SharedResource
     {

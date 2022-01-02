@@ -1,6 +1,5 @@
 namespace Web
 {
-    using System;
     using System.Reflection;
     using Controller.Api;
     using Controller.Mapping;
@@ -8,9 +7,6 @@ namespace Web
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using Repository.Contexts;
     using Swashbuckle.AspNetCore.SwaggerGen;

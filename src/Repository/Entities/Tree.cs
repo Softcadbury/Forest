@@ -1,6 +1,5 @@
 ﻿namespace Repository.Entities
 {
-    using System.Collections.Generic;
     using Repository.Entities.Base;
 
     public class Tree : TenantEntityBase

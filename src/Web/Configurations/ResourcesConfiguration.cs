@@ -1,9 +1,7 @@
 ﻿namespace Web.Configurations
 {
-    using System.Collections.Generic;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Localization;
-    using Microsoft.Extensions.DependencyInjection;
     using Resources;
 
     public static class ResourcesConfiguration

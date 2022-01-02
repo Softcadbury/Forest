@@ -1,8 +1,5 @@
 ﻿namespace Controller.Api
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using AutoMapper;
     using Controller.Base;
     using Controller.ViewModels.Tree;

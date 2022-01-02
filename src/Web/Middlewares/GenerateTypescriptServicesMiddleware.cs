@@ -1,7 +1,5 @@
 ﻿namespace Web.Middlewares
 {
-    using System.IO;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using NSwag;
     using NSwag.CodeGeneration.TypeScript;

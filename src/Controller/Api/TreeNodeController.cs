@@ -1,9 +1,5 @@
 ﻿namespace Controller.Api
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using AutoMapper;
     using Controller.Base;
     using Controller.Helpers;
