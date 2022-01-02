@@ -13,7 +13,9 @@
         {
         }
 
-        public DbSet<Node> Tenants { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
+
+        public DbSet<Tenant> Tenants { get; set; } = null!;
 
         public DbSet<Tree> Trees { get; set; } = null!;
 

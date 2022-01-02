@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Contexts;
 
+#nullable disable
+
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
@@ -15,9 +17,10 @@ namespace Repository.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.5")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Repository.Entities.Node", b =>
                 {
@@ -49,7 +52,32 @@ namespace Repository.Migrations
 
                     b.HasIndex("TreeId");
 
-                    b.ToTable("Node");
+                    b.ToTable("Nodes");
+                });
+
+            modelBuilder.Entity("Repository.Entities.Tenant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Tenants");
                 });
 
             modelBuilder.Entity("Repository.Entities.Tree", b =>
@@ -75,6 +103,22 @@ namespace Repository.Migrations
                     b.ToTable("Trees");
                 });
 
+            modelBuilder.Entity("Repository.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Repository.Entities.Node", b =>
                 {
                     b.HasOne("Repository.Entities.Node", "Parent")
@@ -92,6 +136,13 @@ namespace Repository.Migrations
                     b.Navigation("Tree");
                 });
 
+            modelBuilder.Entity("Repository.Entities.Tenant", b =>
+                {
+                    b.HasOne("Repository.Entities.User", null)
+                        .WithMany("Tenants")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Repository.Entities.Node", b =>
                 {
                     b.Navigation("Children");
@@ -100,6 +151,11 @@ namespace Repository.Migrations
             modelBuilder.Entity("Repository.Entities.Tree", b =>
                 {
                     b.Navigation("Nodes");
+                });
+
+            modelBuilder.Entity("Repository.Entities.User", b =>
+                {
+                    b.Navigation("Tenants");
                 });
 #pragma warning restore 612, 618
         }
