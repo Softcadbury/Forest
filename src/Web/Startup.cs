@@ -1,6 +1,7 @@
 namespace Web
 {
     using System.Reflection;
+    using Common.AppSettings;
     using Controller.Api;
     using Controller.Mapping;
     using Microsoft.AspNetCore.Builder;
@@ -24,6 +25,8 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureSettings(Configuration);
+
             services.AddControllersWithViews().AddApplicationPart(typeof(TreeController).Assembly);
 
             services.AddSwaggerGen(configuration =>
@@ -71,7 +74,11 @@ namespace Web
 
             if (env.IsDevelopment())
             {
-                app.UseMiddleware<GenerateTypescriptServicesMiddleware>();
+                DevelopmentSettings developmentSettings = Configuration.GetSection(DevelopmentSettings.SectionName).Get<DevelopmentSettings>();
+                if (developmentSettings.EnableTypeScriptServicesGeneration)
+                {
+                    app.UseMiddleware<GenerateTypescriptServicesMiddleware>();
+                }
             }
 
             app.UseHttpsRedirection();
