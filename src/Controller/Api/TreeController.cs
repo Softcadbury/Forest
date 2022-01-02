@@ -23,7 +23,7 @@
         [HttpGet("{treeId}")]
         public async Task<ActionResult<TreeViewModel>> Get(Guid treeId)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
+            Tree? tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
 
             if (tree == null)
             {
@@ -55,7 +55,7 @@
         [HttpPut("{treeId}")]
         public async Task<ActionResult<TreeViewModel>> Update(Guid treeId, TreeViewModelPut treePut)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
+            Tree? tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
 
             if (tree == null)
             {
@@ -72,7 +72,7 @@
         [HttpDelete("{treeId}")]
         public async Task<IActionResult> Delete(Guid treeId)
         {
-            Tree tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
+            Tree? tree = await _context.Trees.FirstOrDefaultAsync(p => p.Id == treeId);
 
             if (tree != null)
             {

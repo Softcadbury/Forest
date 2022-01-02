@@ -15,7 +15,7 @@
         {
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture(SharedResource.GetDefaultCultureInfo()),
+                DefaultRequestCulture = new RequestCulture(SharedResource.DefaultCultureInfo),
                 SupportedCultures = SharedResource.GetSupportedCulturesInfo(),
                 SupportedUICultures = SharedResource.GetSupportedCulturesInfo(),
                 RequestCultureProviders = new List<IRequestCultureProvider> { new AcceptLanguageHeaderRequestCultureProvider() },

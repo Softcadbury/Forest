@@ -24,7 +24,7 @@
         [HttpGet("{nodeId}")]
         public async Task<ActionResult<NodeViewModel>> Get(Guid treeId, Guid nodeId)
         {
-            Node node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
+            Node? node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
 
             if (node == null)
             {
@@ -69,7 +69,7 @@
         [HttpPut("{id}")]
         public async Task<ActionResult<NodeViewModel>> Update(Guid treeId, Guid nodeId, NodeViewModelPut nodePut)
         {
-            Node node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
+            Node? node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
 
             if (node == null)
             {
@@ -86,7 +86,7 @@
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid treeId, Guid nodeId)
         {
-            Node node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
+            Node? node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
 
             if (node != null)
             {

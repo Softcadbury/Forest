@@ -10,12 +10,12 @@
             string currentDirectoryName = TestContext.CurrentContext.TestDirectory;
             int index = currentDirectoryName.IndexOf(sourcesFolder, StringComparison.Ordinal);
 
-            if (index != -1)
+            if (index == -1)
             {
-                return currentDirectoryName.Substring(0, index + sourcesFolder.Length);
+                throw new InvalidOperationException($"Could not find the path {currentDirectoryName} in the solution directory");
             }
 
-            throw new Exception($"Could not find the path {currentDirectoryName} in the solution directory");
+            return currentDirectoryName[..(index + sourcesFolder.Length)];
         }
     }
 }

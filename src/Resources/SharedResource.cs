@@ -6,12 +6,11 @@
     {
         public const string EnGb = "en-GB";
 
+#pragma warning disable CA1819 // Properties should not return arrays
         public static string[] SupportedCultures { get; } = { EnGb };
+#pragma warning restore CA1819 // Properties should not return arrays
 
-        public static CultureInfo GetDefaultCultureInfo()
-        {
-            return new(EnGb);
-        }
+        public static CultureInfo DefaultCultureInfo => new(EnGb);
 
         public static CultureInfo[] GetSupportedCulturesInfo()
         {
