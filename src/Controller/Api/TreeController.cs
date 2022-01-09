@@ -36,7 +36,7 @@
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TreeViewModel>>> GetAll()
         {
-            List<Tree> trees = await _context.Trees.ToListAsync();
+            List<Tree> trees = await _context.Trees.OrderByDescending(p => p.CreationDate).ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<TreeViewModel>>(trees));
         }

@@ -1,4 +1,8 @@
 import { Box, Button, FormControl, Input, InputLabel, Modal } from "@material-ui/core";
+import { useCallback, useState } from "react";
+import { useTextField } from "../../../hooks/useTextField";
+import { useQueryStore } from "../../../query-store/query-store";
+import { TreePost } from "../../../services/generated-services";
 
 interface AddTreeModalProperties {
     isOpen: boolean;
@@ -18,6 +22,17 @@ const style = {
 };
 
 function AddTreeModal({ isOpen, handleClose }: AddTreeModalProperties) {
+    const { treesStore } = useQueryStore();
+    const { mutate: onCreateTree } = treesStore.useCreate();
+    const [treeLabel, , onTreeLabelChange] = useTextField();
+
+    const onClickCreateTree = useCallback(() => {
+        // todo handle bad arguments
+        var tree = new TreePost({ label: treeLabel });
+        onCreateTree(tree);
+        handleClose();
+    }, [handleClose, onCreateTree, treeLabel]);
+
     return (
         <Modal
             open={isOpen}
@@ -28,9 +43,9 @@ function AddTreeModal({ isOpen, handleClose }: AddTreeModalProperties) {
             <Box sx={style}>
                 <FormControl>
                     <InputLabel htmlFor="my-input">Name</InputLabel>
-                    <Input id="my-input" aria-describedby="my-helper-text" />
+                    <Input id="my-input" aria-describedby="my-helper-text" onChange={onTreeLabelChange} />
                 </FormControl>
-                <Button>+ Add</Button>
+                <Button onClick={onClickCreateTree}>+ Add</Button>
             </Box>
         </Modal>
     );

@@ -1,5 +1,5 @@
-import { QueryObserverResult, useQuery } from "react-query";
-import { Client, Tree } from "../../services/generated-services";
+import { QueryObserverResult, useMutation, UseMutationResult, useQuery, useQueryClient } from "react-query";
+import { Client, Tree, TreePost } from "../../services/generated-services";
 import queryStoreKeys from "../query-store-keys";
 
 const useGet = (id: string | undefined): QueryObserverResult<Tree> => {
@@ -25,6 +25,23 @@ const useGetAll = (): QueryObserverResult<Tree[]> => {
     });
 };
 
-const treeQueryStore = { useGet, useGetAll };
+const useCreate = (): UseMutationResult<Tree, unknown, TreePost, unknown> => {
+    const client = new Client();
+    const queryClient = useQueryClient();
+
+    return useMutation(
+        async (tree: TreePost) => {
+            return await client.treeCreate(tree);
+        },
+        {
+            onSuccess: (result: Tree) => {
+                queryClient.setQueryData<Tree[]>(queryStoreKeys.TREES_GET_ALL, (old) => (old ? [result, ...old] : []));
+            },
+            // todo - handle onError
+        }
+    );
+};
+
+const treeQueryStore = { useGet, useGetAll, useCreate };
 
 export default treeQueryStore;
