@@ -652,6 +652,7 @@ export interface INodePut {
 }
 
 export class Resources implements IResources {
+    common_Add?: string | undefined;
 
     constructor(data?: IResources) {
         if (data) {
@@ -663,6 +664,9 @@ export class Resources implements IResources {
     }
 
     init(_data?: any) {
+        if (_data) {
+            this.common_Add = _data["common_Add"];
+        }
     }
 
     static fromJS(data: any): Resources {
@@ -674,11 +678,13 @@ export class Resources implements IResources {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["common_Add"] = this.common_Add;
         return data;
     }
 }
 
 export interface IResources {
+    common_Add?: string | undefined;
 }
 
 export class Tree implements ITree {

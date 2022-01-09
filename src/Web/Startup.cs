@@ -6,7 +6,6 @@ namespace Web
     using Controller.Mapping;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.OpenApi.Models;
     using Repository.Contexts;
@@ -42,9 +41,9 @@ namespace Web
                 configuration.CustomSchemaIds(p => p.Name.Replace("ViewModel", string.Empty, StringComparison.InvariantCultureIgnoreCase));
             });
 
-            services.AddSpaStaticFiles(configuration =>
+            services.AddSpaStaticFiles(config =>
             {
-                configuration.RootPath = "ClientApp/build";
+                config.RootPath = "dist";
             });
 
             services.AddDbContext<Context>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
@@ -89,17 +88,14 @@ namespace Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
             });
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
-
                 if (env.IsDevelopment())
                 {
-                    spa.Options.PackageManagerCommand = "yarn";
-                    spa.UseReactDevelopmentServer("start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
                 }
             });
 
