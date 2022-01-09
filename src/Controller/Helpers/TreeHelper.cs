@@ -29,7 +29,7 @@
             bool isNodeAlreadyDisplayed = branch.Take(branch.Count - 1).Any(p => p.Node.Id == node.Id);
             if (isNodeAlreadyDisplayed)
             {
-                var infiniteNode = new Node(Guid.NewGuid(), "[...]");
+                var infiniteNode = new Node(Guid.NewGuid(), Guid.NewGuid(), "[...]");
                 AddNodeToBranch(branch, node: infiniteNode, level: nodeLevel + 1, isLast: isNodeLast);
                 AppendNodeToStringBuilder(builder, branch, isNodeLast);
                 return;

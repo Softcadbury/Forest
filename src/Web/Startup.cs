@@ -1,5 +1,6 @@
 namespace Web
 {
+    using Common.Misc;
     using Controller.Api;
     using Controller.Mapping;
     using Microsoft.AspNetCore.Builder;
@@ -7,6 +8,7 @@ namespace Web
     using Microsoft.EntityFrameworkCore;
     using Repository.Contexts;
     using Web.Configurations;
+    using Web.Middlewares;
 
     public class Startup
     {
@@ -26,6 +28,8 @@ namespace Web
             services.AddDbContext<Context>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
             services.AddAutoMapper(typeof(MapperConfiguration));
             services.ConfigureResources();
+
+            services.AddScoped(p => new CurrentContext());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,6 +49,8 @@ namespace Web
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseMiddleware<CurrentContextInitializerMiddleware>();
 
             app.ConfigureSwagger(env);
             app.UseHttpsRedirection();

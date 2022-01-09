@@ -86,12 +86,12 @@
 
         private static Tree CreateTree(string label)
         {
-            return new Tree(label) { Id = Guid.NewGuid() };
+            return new Tree(Guid.NewGuid(), label) { Id = Guid.NewGuid() };
         }
 
         private static Node CreateNode(Tree tree, string label, params Node[] children)
         {
-            var node = new Node(tree.Id, label) { Id = Guid.NewGuid() };
+            var node = new Node(Guid.NewGuid(), tree.Id, label) { Id = Guid.NewGuid() };
             node.Children.AddRange(children);
 
             return node;

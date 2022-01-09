@@ -8,7 +8,8 @@
 
         public List<Node> Nodes { get; }
 
-        public Tree(string label)
+        public Tree(Guid tenantId, string label)
+            : base(tenantId)
         {
             Label = label;
             Nodes = new List<Node>();

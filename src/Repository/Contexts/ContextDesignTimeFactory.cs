@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore.Design;
 
     /// <summary>
-    /// Create context to generate EF migrations
+    /// Create context to generate EF migrations.
     /// </summary>
     public class ContextDesignTimeFactory : IDesignTimeDbContextFactory<Context>
     {
@@ -13,7 +13,7 @@
             const string connectionString = "Server=.;Database=Forest;Trusted_Connection=True;ConnectRetryCount=0";
             DbContextOptions<Context> options = new DbContextOptionsBuilder<Context>().UseSqlServer(connectionString).Options;
 
-            return new Context(options);
+            return new Context(options, null!);
         }
     }
 }

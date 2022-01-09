@@ -1,6 +1,7 @@
 ﻿namespace Controller.Api
 {
     using AutoMapper;
+    using Common.Misc;
     using Controller.Base;
     using Controller.ViewModels.Tree;
     using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@
     public class TreeController : CustomApiControllerBase
     {
         private readonly Context _context;
+        private readonly CurrentContext _currentContext;
         private readonly IMapper _mapper;
 
-        public TreeController(Context context, IMapper mapper)
+        public TreeController(Context context, CurrentContext currentContext, IMapper mapper)
         {
             _context = context;
+            _currentContext = currentContext;
             _mapper = mapper;
         }
 
@@ -44,7 +47,7 @@
         [HttpPost]
         public async Task<ActionResult<TreeViewModel>> Create(TreeViewModelPost treePost)
         {
-            Tree tree = new Tree(treePost.Label);
+            Tree tree = new Tree(_currentContext.TenantId, treePost.Label);
 
             _context.Trees.Add(tree);
             await _context.SaveChangesAsync();

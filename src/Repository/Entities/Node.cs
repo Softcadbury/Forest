@@ -16,7 +16,8 @@
 
         public List<Node> Children { get; }
 
-        public Node(Guid treeId, string label)
+        public Node(Guid tenantId, Guid treeId, string label)
+            : base(tenantId)
         {
             TreeId = treeId;
             Label = label;

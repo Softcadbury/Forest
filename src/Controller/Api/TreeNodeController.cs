@@ -1,6 +1,7 @@
 ﻿namespace Controller.Api
 {
     using AutoMapper;
+    using Common.Misc;
     using Controller.Base;
     using Controller.Helpers;
     using Controller.ViewModels.Node;
@@ -13,11 +14,13 @@
     public class TreeNodeController : CustomApiControllerBase
     {
         private readonly Context _context;
+        private readonly CurrentContext _currentContext;
         private readonly IMapper _mapper;
 
-        public TreeNodeController(Context context, IMapper mapper)
+        public TreeNodeController(Context context, CurrentContext currentContext, IMapper mapper)
         {
             _context = context;
+            _currentContext = currentContext;
             _mapper = mapper;
         }
 
@@ -58,7 +61,7 @@
         [HttpPost]
         public async Task<ActionResult<NodeViewModel>> Create(Guid treeId, NodeViewModelPost nodePost)
         {
-            Node node = new Node(treeId, nodePost.Label);
+            Node node = new Node(_currentContext.TenantId, treeId, nodePost.Label);
 
             _context.Nodes.Add(node);
             await _context.SaveChangesAsync();
