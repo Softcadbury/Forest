@@ -1,7 +1,6 @@
 namespace Web
 {
     using Common.Misc;
-    using Controller.Api;
     using Controller.Mapping;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -22,14 +21,14 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureSettings(Configuration);
-            services.AddControllersWithViews().AddApplicationPart(typeof(TreeController).Assembly);
+            services.ConfigureAuthentication();
             services.ConfigureSwagger();
             services.ConfigureFront();
             services.AddDbContext<ApplicationDbContext>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
             services.AddAutoMapper(typeof(MapperConfiguration));
             services.ConfigureResources();
 
-            services.AddScoped(p => new CurrentContext());
+            services.AddScoped(_ => new CurrentContext());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,14 +49,14 @@ namespace Web
                 app.UseHsts();
             }
 
-            app.UseMiddleware<CurrentContextInitializerMiddleware>();
-
-            app.ConfigureSwagger(env);
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.ConfigureAuthentication();
             app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
-            app.ConfigureFront(env, Configuration);
+            app.UseMiddleware<CurrentContextInitializerMiddleware>();
+            app.ConfigureSwagger(env);
             app.ConfigureResources();
+            app.ConfigureFront(env, Configuration);
         }
     }
 }

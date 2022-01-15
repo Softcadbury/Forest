@@ -2,6 +2,7 @@
 {
     using Common.Misc;
     using Microsoft.AspNetCore.Http;
+    using Namotion.Reflection;
 
     public class CurrentContextInitializerMiddleware
     {
@@ -14,8 +15,7 @@
 
         public async Task Invoke(HttpContext context, CurrentContext currentContext)
         {
-            // todo - Initialize tenant id based on connected user
-            currentContext.TenantId = Guid.Parse("db70957e-4faa-4169-80be-f5d543c98cc2");
+            currentContext.TenantId = context.User.Claims.TryGetPropertyValue<Guid>("TenantId");
 
             await _next(context);
         }

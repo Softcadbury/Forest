@@ -7,6 +7,7 @@
   <Import Project="..\.assets\SharedProjectConfiguration.targets" />
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.1" />
     <PackageReference Include="NSwag.CodeGeneration.TypeScript" Version="13.15.5" />
     <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.376">
