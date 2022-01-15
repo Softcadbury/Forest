@@ -1,8 +1,8 @@
 ﻿namespace Repository.Entities
 {
-    using Repository.Entities.Base;
+    using Microsoft.AspNetCore.Identity;
 
-    public class User : EntityBase
+    public class User : IdentityUser<Guid>
     {
         public List<Tenant> Tenants { get; }
 

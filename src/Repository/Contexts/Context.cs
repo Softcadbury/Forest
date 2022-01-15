@@ -2,13 +2,23 @@
 {
     using System.Linq.Expressions;
     using Common.Misc;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Query;
     using Microsoft.Extensions.DependencyInjection;
     using Repository.Entities;
     using Repository.Entities.Base;
 
-    public class Context : DbContext
+    public class Context : IdentityDbContext<
+        User,
+        IdentityRole<Guid>,
+        Guid,
+        IdentityUserClaim<Guid>,
+        IdentityUserRole<Guid>,
+        IdentityUserLogin<Guid>,
+        IdentityRoleClaim<Guid>,
+        IdentityUserToken<Guid>>
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -17,8 +27,6 @@
         {
             _serviceProvider = serviceProvider;
         }
-
-        public DbSet<User> Users { get; set; } = null!;
 
         public DbSet<Tenant> Tenants { get; set; } = null!;
 
@@ -38,35 +46,35 @@
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
-            ConfigureTenantEntityBaseEntities(modelBuilder);
-            ConfigureEntityBaseEntities(modelBuilder);
+            base.OnModelCreating(builder);
+            ConfigureTenantEntityBaseEntities(builder);
+            ConfigureEntityBaseEntities(builder);
         }
 
-        private void ConfigureTenantEntityBaseEntities(ModelBuilder modelBuilder)
+        private void ConfigureTenantEntityBaseEntities(ModelBuilder builder)
         {
             // Add tenant filter
-            IEnumerable<Type> tenantEntities = modelBuilder.Model.GetEntityTypes().Select(p => p.ClrType).Where(p => typeof(TenantEntityBase).IsAssignableFrom(p));
+            IEnumerable<Type> tenantEntities = builder.Model.GetEntityTypes().Select(p => p.ClrType).Where(p => typeof(TenantEntityBase).IsAssignableFrom(p));
             Expression<Func<TenantEntityBase, bool>> tenantFilter = p => p.TenantId == GetCurrentTenantId();
 
             foreach (Type type in tenantEntities)
             {
                 ParameterExpression parameter = Expression.Parameter(type);
                 Expression expression = ReplacingExpressionVisitor.Replace(tenantFilter.Parameters.Single(), parameter, tenantFilter.Body);
-                modelBuilder.Entity(type).HasQueryFilter(Expression.Lambda(expression, parameter));
+                builder.Entity(type).HasQueryFilter(Expression.Lambda(expression, parameter));
             }
         }
 
-        private static void ConfigureEntityBaseEntities(ModelBuilder modelBuilder)
+        private static void ConfigureEntityBaseEntities(ModelBuilder builder)
         {
             // Set CreationDate at entity creation
-            IEnumerable<Type> entityTypes = modelBuilder.Model.GetEntityTypes().Select(p => p.ClrType).Where(p => typeof(EntityBase).IsAssignableFrom(p));
+            IEnumerable<Type> entityTypes = builder.Model.GetEntityTypes().Select(p => p.ClrType).Where(p => typeof(EntityBase).IsAssignableFrom(p));
 
             foreach (Type type in entityTypes)
             {
-                modelBuilder.Entity(type).Property(typeof(DateTime), "CreationDate").HasDefaultValueSql("GETUTCDATE()");
+                builder.Entity(type).Property(typeof(DateTime), "CreationDate").HasDefaultValueSql("GETUTCDATE()");
             }
         }
 
