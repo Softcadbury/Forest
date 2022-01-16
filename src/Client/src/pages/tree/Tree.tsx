@@ -11,8 +11,8 @@ function Tree() {
     const match = useRouteMatch<{ id: string }>("/trees/:id");
     const id = match?.params.id;
 
-    const { treesStore } = useQueryStore();
-    const { data } = treesStore.useGet(id);
+    const { treeStore } = useQueryStore();
+    const { data } = treeStore.useGet(id);
 
     if (!data) return <CircularProgress />;
 

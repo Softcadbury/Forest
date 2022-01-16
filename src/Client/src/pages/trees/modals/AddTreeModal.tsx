@@ -22,8 +22,8 @@ const style = {
 };
 
 function AddTreeModal({ isOpen, handleClose }: AddTreeModalProperties) {
-    const { treesStore } = useQueryStore();
-    const { mutate: onCreateTree } = treesStore.useCreate();
+    const { treeStore } = useQueryStore();
+    const { mutate: onCreateTree } = treeStore.useCreate();
     const [treeLabel, , onTreeLabelChange] = useTextField();
 
     const onClickCreateTree = useCallback(() => {

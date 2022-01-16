@@ -1,5 +1,7 @@
+import identityQueryStore from "./identity/identity-query-store";
 import treeQueryStore from "./tree/tree-query-store";
 
 export const useQueryStore = () => ({
-    treesStore: treeQueryStore,
+    identityStore: identityQueryStore,
+    treeStore: treeQueryStore,
 });

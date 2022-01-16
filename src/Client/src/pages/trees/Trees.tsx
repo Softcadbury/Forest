@@ -9,8 +9,8 @@ const StyledCard = styled(Card)`
 `;
 
 function Trees() {
-    const { treesStore } = useQueryStore();
-    const { data } = treesStore.useGetAll();
+    const { treeStore } = useQueryStore();
+    const { data } = treeStore.useGetAll();
 
     const [isAddTreeModalOpen, showAddTreeModal, hideAddTreeModal] = useBooleanState(false);
 
