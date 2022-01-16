@@ -10,7 +10,7 @@
     using Repository.Entities;
     using Repository.Entities.Base;
 
-    public class Context : IdentityDbContext<
+    public class ApplicationDbContext : IdentityDbContext<
         User,
         IdentityRole<Guid>,
         Guid,
@@ -22,7 +22,7 @@
     {
         private readonly IServiceProvider _serviceProvider;
 
-        public Context(DbContextOptions<Context> options, IServiceProvider serviceProvider)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IServiceProvider serviceProvider)
             : base(options)
         {
             _serviceProvider = serviceProvider;

@@ -25,7 +25,7 @@ namespace Web
             services.AddControllersWithViews().AddApplicationPart(typeof(TreeController).Assembly);
             services.ConfigureSwagger();
             services.ConfigureFront();
-            services.AddDbContext<Context>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
+            services.AddDbContext<ApplicationDbContext>(p => p.UseSqlServer(Configuration.GetConnectionString("Main")));
             services.AddAutoMapper(typeof(MapperConfiguration));
             services.ConfigureResources();
 

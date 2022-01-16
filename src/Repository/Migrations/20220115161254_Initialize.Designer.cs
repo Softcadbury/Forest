@@ -11,7 +11,7 @@ using Repository.Contexts;
 
 namespace Repository.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220115161254_Initialize")]
     partial class Initialize
     {

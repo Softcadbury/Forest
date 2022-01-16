@@ -6,14 +6,14 @@
     /// <summary>
     /// Create context to generate EF migrations.
     /// </summary>
-    public class ContextDesignTimeFactory : IDesignTimeDbContextFactory<Context>
+    public class ContextDesignTimeFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
-        public Context CreateDbContext(string[] args)
+        public ApplicationDbContext CreateDbContext(string[] args)
         {
             const string connectionString = "Server=.;Database=Forest;Trusted_Connection=True;ConnectRetryCount=0";
-            DbContextOptions<Context> options = new DbContextOptionsBuilder<Context>().UseSqlServer(connectionString).Options;
+            DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer(connectionString).Options;
 
-            return new Context(options, null!);
+            return new ApplicationDbContext(options, null!);
         }
     }
 }

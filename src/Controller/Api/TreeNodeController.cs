@@ -13,13 +13,13 @@
     [Route("api/trees/{treeId}/nodes")]
     public class TreeNodeController : CustomApiControllerBase
     {
-        private readonly Context _context;
+        private readonly ApplicationDbContext _applicationDbContext;
         private readonly CurrentContext _currentContext;
         private readonly IMapper _mapper;
 
-        public TreeNodeController(Context context, CurrentContext currentContext, IMapper mapper)
+        public TreeNodeController(ApplicationDbContext applicationDbContext, CurrentContext currentContext, IMapper mapper)
         {
-            _context = context;
+            _applicationDbContext = applicationDbContext;
             _currentContext = currentContext;
             _mapper = mapper;
         }
@@ -27,7 +27,7 @@
         [HttpGet("{nodeId}")]
         public async Task<ActionResult<NodeViewModel>> Get(Guid treeId, Guid nodeId)
         {
-            Node? node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
+            Node? node = await _applicationDbContext.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
 
             if (node == null)
             {
@@ -40,7 +40,7 @@
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NodeViewModel>>> GetAll(Guid treeId)
         {
-            List<Node> nodes = await _context.Nodes.Where(p => p.TreeId == treeId).ToListAsync();
+            List<Node> nodes = await _applicationDbContext.Nodes.Where(p => p.TreeId == treeId).ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<NodeViewModel>>(nodes));
         }
@@ -48,7 +48,7 @@
         [HttpGet("prettyPrint")]
         public async Task<ActionResult<string>> GetPrettyPrint(Guid treeId)
         {
-            Tree? tree = await _context.Trees.Where(p => p.Id == treeId).SingleOrDefaultAsync();
+            Tree? tree = await _applicationDbContext.Trees.Where(p => p.Id == treeId).SingleOrDefaultAsync();
 
             if (tree == null)
             {
@@ -63,8 +63,8 @@
         {
             Node node = new Node(_currentContext.TenantId, treeId, nodePost.Label);
 
-            _context.Nodes.Add(node);
-            await _context.SaveChangesAsync();
+            _applicationDbContext.Nodes.Add(node);
+            await _applicationDbContext.SaveChangesAsync();
 
             return Ok(_mapper.Map<NodeViewModel>(node));
         }
@@ -72,7 +72,7 @@
         [HttpPut("{id}")]
         public async Task<ActionResult<NodeViewModel>> Update(Guid treeId, Guid nodeId, NodeViewModelPut nodePut)
         {
-            Node? node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
+            Node? node = await _applicationDbContext.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
 
             if (node == null)
             {
@@ -80,8 +80,8 @@
             }
 
             node.Label = nodePut.Label;
-            _context.Nodes.Update(node);
-            await _context.SaveChangesAsync();
+            _applicationDbContext.Nodes.Update(node);
+            await _applicationDbContext.SaveChangesAsync();
 
             return Ok(_mapper.Map<NodeViewModel>(node));
         }
@@ -89,12 +89,12 @@
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid treeId, Guid nodeId)
         {
-            Node? node = await _context.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
+            Node? node = await _applicationDbContext.Nodes.FirstOrDefaultAsync(p => p.Id == nodeId && p.TreeId == treeId);
 
             if (node != null)
             {
-                _context.Nodes.Remove(node);
-                await _context.SaveChangesAsync();
+                _applicationDbContext.Nodes.Remove(node);
+                await _applicationDbContext.SaveChangesAsync();
             }
 
             return Ok();

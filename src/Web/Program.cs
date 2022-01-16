@@ -11,7 +11,7 @@ namespace Web
             var host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
-            var context = services.GetRequiredService<Context>();
+            var context = services.GetRequiredService<ApplicationDbContext>();
             context.Database.Migrate();
 
             host.Run();
