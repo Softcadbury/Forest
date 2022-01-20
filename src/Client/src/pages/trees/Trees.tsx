@@ -10,18 +10,18 @@ const StyledCard = styled(Card)`
 
 function Trees() {
     const { treeStore } = useQueryStore();
-    const { data } = treeStore.useGetAll();
+    const { data: trees } = treeStore.useGetAll();
 
     const [isAddTreeModalOpen, showAddTreeModal, hideAddTreeModal] = useBooleanState(false);
 
-    if (!data) return <CircularProgress />;
+    if (!trees) return <CircularProgress />;
 
     return (
         <>
-            {data.map((p) => (
-                <StyledCard key={p.id}>
+            {trees.map((tree) => (
+                <StyledCard key={tree.id}>
                     <CardContent>
-                        <Button href={"/trees/" + p.id}>{p.label}</Button>
+                        <Button href={"/trees/" + tree.id}>{tree.label}</Button>
                     </CardContent>
                 </StyledCard>
             ))}

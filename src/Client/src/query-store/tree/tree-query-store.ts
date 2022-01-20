@@ -30,7 +30,7 @@ const useCreate = (): UseMutationResult<Tree, unknown, TreePost, unknown> => {
     const queryClient = useQueryClient();
 
     return useMutation(
-        async (tree: TreePost) => {
+        async (tree) => {
             return await client.treeCreate(tree);
         },
         {
