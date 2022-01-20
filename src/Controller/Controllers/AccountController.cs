@@ -16,7 +16,6 @@
         public async Task<IActionResult> Login()
         {
             // Todo - Handle user creation properly
-
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
             identity.AddClaim(new Claim(ApplicationClaims.TenantId, "db70957e-4faa-4169-80be-f5d543c98cc2"));
             identity.AddClaim(new Claim(ApplicationClaims.TenantId, "1"));

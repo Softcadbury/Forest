@@ -41,3 +41,6 @@ dotnet_diagnostic.CA1014.severity = none
 
 # SA1204: Static elements should appear before instance elements
 dotnet_diagnostic.SA1204.severity = none
+
+# CA1812: Program is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static members, make it static (Shared in Visual Basic).
+dotnet_diagnostic.CA1812.severity = none
