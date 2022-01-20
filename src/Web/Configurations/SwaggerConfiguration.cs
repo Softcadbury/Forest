@@ -25,15 +25,12 @@
 
         public static void ConfigureSwagger(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Forest v1");
-                    c.DefaultModelsExpandDepth(-1); // Remove schemas section
-                });
-            }
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Forest v1");
+                c.DefaultModelsExpandDepth(-1); // Remove schemas section
+            });
         }
     }
 }
