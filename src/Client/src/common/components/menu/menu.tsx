@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 
 export default function Menu() {
     return (
