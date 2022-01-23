@@ -1,6 +1,6 @@
 import { QueryObserverResult, useQuery } from "react-query";
-import { Client } from "../../services/generated-services";
-import queryStoreKeys from "../query-store-keys";
+import { Client } from "../../services/generatedServices";
+import queryStoreKeys from "../queryStoreKeys";
 
 const useGet = (): QueryObserverResult<boolean> => {
     const client = new Client();

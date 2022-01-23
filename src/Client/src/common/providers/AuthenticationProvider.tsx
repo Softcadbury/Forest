@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useQueryStore } from "../../query-store/query-store";
+import { useQueryStore } from "../../stores/queryStore";
 
 export const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     const {

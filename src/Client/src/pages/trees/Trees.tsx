@@ -1,4 +1,4 @@
-import { useQueryStore } from "../../query-store/query-store";
+import { useQueryStore } from "../../stores/queryStore";
 import { Button, CircularProgress, CardContent, Card, Grid, Typography } from "@mui/material";
 import AddTreeModal from "./modals/AddTreeModal";
 import useBooleanState from "../../hooks/useBooleanState";

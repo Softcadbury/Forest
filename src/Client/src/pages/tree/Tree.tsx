@@ -1,8 +1,8 @@
 import { CircularProgress, CardContent, Card, Button, Typography, Grid } from "@mui/material";
 import { useRouteMatch } from "react-router-dom";
-import { useQueryStore } from "../../query-store/query-store";
+import { useQueryStore } from "../../stores/queryStore";
 import { useCallback } from "react";
-import { NodePost } from "../../services/generated-services";
+import { NodePost } from "../../services/generatedServices";
 
 function Tree() {
     const match = useRouteMatch<{ id: string }>("/trees/:id");

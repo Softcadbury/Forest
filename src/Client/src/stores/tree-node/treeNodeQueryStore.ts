@@ -1,6 +1,6 @@
 import { QueryObserverResult, useMutation, UseMutationResult, useQuery, useQueryClient } from "react-query";
-import { Client, NodePost, Tree, TreePost } from "../../services/generated-services";
-import queryStoreKeys from "../query-store-keys";
+import { Client, NodePost, Tree, TreePost } from "../../services/generatedServices";
+import queryStoreKeys from "../queryStoreKeys";
 
 const useGetAll = (treeId: string | undefined): QueryObserverResult<Node[]> => {
     const client = new Client();

@@ -1,8 +1,8 @@
 import { Box, Button, FormControl, Input, InputLabel, Modal } from "@mui/material";
 import { useCallback } from "react";
 import { useTextField } from "../../../hooks/useTextField";
-import { useQueryStore } from "../../../query-store/query-store";
-import { TreePost } from "../../../services/generated-services";
+import { useQueryStore } from "../../../stores/queryStore";
+import { TreePost } from "../../../services/generatedServices";
 
 interface AddTreeModalProperties {
     isOpen: boolean;

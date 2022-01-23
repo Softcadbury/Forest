@@ -22,7 +22,7 @@
                 var settings = new TypeScriptClientGeneratorSettings { ClassName = "{controller}Client" };
                 var generator = new TypeScriptClientGenerator(document, settings);
                 var code = generator.GenerateFile();
-                await File.WriteAllTextAsync("../Client/src/services/generated-services.ts", code);
+                await File.WriteAllTextAsync("../Client/src/services/generatedServices.ts", code);
                 _isGenerated = true;
             }
 

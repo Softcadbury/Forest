@@ -1,8 +1,8 @@
 import { Box, CircularProgress, Container, createTheme, GlobalStyles } from "@mui/material";
 import { Fragment, lazy, Suspense } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import { AuthenticationProvider } from "./common/providers/authentication-provider";
-import Menu from "./common/components/menu/menu";
+import { AuthenticationProvider } from "./common/providers/AuthenticationProvider";
+import Menu from "./common/components/menu/Menu";
 
 const Tree = lazy(() => import("./pages/tree/Tree"));
 const Trees = lazy(() => import("./pages/trees/Trees"));
