@@ -5,9 +5,9 @@
     using Controller.ViewModels.Tree;
     using Repository.Entities;
 
-    public class MapperConfiguration : Profile
+    public class ApplicationMapperConfiguration : Profile
     {
-        public MapperConfiguration()
+        public ApplicationMapperConfiguration()
         {
             CreateMap<Tree, TreeViewModel>();
             CreateMap<Node, NodeViewModel>();

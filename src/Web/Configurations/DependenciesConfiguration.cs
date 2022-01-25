@@ -11,7 +11,7 @@
         {
             services.AddDbContext<ApplicationDbContext>(p => p.UseSqlServer(configuration.GetConnectionString("Main")));
 
-            services.AddAutoMapper(typeof(MapperConfiguration));
+            services.AddAutoMapper(typeof(ApplicationMapperConfiguration));
 
             services.AddScoped(_ => new CurrentContext());
         }
