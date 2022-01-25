@@ -1,5 +1,7 @@
 ﻿namespace Common.Tests.TestHelpers
 {
+    using AutoMapper;
+    using Controller.Mapping;
     using NUnit.Framework;
 
     public static class TestHelper
@@ -16,6 +18,16 @@
             }
 
             return currentDirectoryName[..(index + sourcesFolder.Length)];
+        }
+
+        public static IMapper GetAutoMapper()
+        {
+            var config = new MapperConfiguration(p =>
+            {
+                p.AddProfile<ApplicationMapperConfiguration>();
+            });
+
+            return new Mapper(config);
         }
     }
 }
