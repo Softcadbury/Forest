@@ -19,10 +19,7 @@
         [HttpGet("")]
         public ActionResult<ResourcesViewModel> Get()
         {
-            return Ok(new ResourcesViewModel
-            {
-                Common_Add = _localizer["Common_Add"],
-            });
+            return Ok(new ResourcesViewModel(_localizer));
         }
     }
 }

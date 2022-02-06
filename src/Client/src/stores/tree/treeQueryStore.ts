@@ -7,9 +7,7 @@ const useGet = (id: string | undefined): QueryObserverResult<Tree> => {
 
     return useQuery({
         queryKey: queryStoreKeys.TREES_GET,
-        queryFn: async () => {
-            return await client.treeGet(id!);
-        },
+        queryFn: async () => await client.treeGet(id!),
         enabled: !!id,
     });
 };
@@ -19,9 +17,7 @@ const useGetAll = (): QueryObserverResult<Tree[]> => {
 
     return useQuery({
         queryKey: queryStoreKeys.TREES_GET_ALL,
-        queryFn: async () => {
-            return await client.treeGetAll();
-        },
+        queryFn: async () => await client.treeGetAll(),
     });
 };
 
@@ -29,17 +25,12 @@ const useCreate = (): UseMutationResult<Tree, unknown, TreePost, unknown> => {
     const client = new Client();
     const queryClient = useQueryClient();
 
-    return useMutation(
-        async (tree) => {
-            return await client.treeCreate(tree);
+    return useMutation(async (tree) => await client.treeCreate(tree), {
+        onSuccess: (result: Tree) => {
+            queryClient.setQueryData<Tree[]>(queryStoreKeys.TREES_GET_ALL, (old) => (old ? [result, ...old] : []));
         },
-        {
-            onSuccess: (result: Tree) => {
-                queryClient.setQueryData<Tree[]>(queryStoreKeys.TREES_GET_ALL, (old) => (old ? [result, ...old] : []));
-            },
-            // todo - handle onError
-        }
-    );
+        // todo - handle onError
+    });
 };
 
 const treeQueryStore = { useGet, useGetAll, useCreate };

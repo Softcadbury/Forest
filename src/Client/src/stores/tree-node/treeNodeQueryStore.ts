@@ -7,9 +7,7 @@ const useGetAll = (treeId: string | undefined): QueryObserverResult<Node[]> => {
 
     return useQuery({
         queryKey: queryStoreKeys.TREE_NODES_GET_ALL,
-        queryFn: async () => {
-            return await client.treeNodeGetAll(treeId!);
-        },
+        queryFn: async () => await client.treeNodeGetAll(treeId!),
         enabled: !!treeId,
     });
 };
@@ -18,19 +16,12 @@ const useCreate = (): UseMutationResult<Tree, unknown, { treeId: string; node: N
     const client = new Client();
     const queryClient = useQueryClient();
 
-    return useMutation(
-        async ({ treeId, node }) => {
-            return await client.treeNodeCreate(treeId, node);
+    return useMutation(async ({ treeId, node }) => await client.treeNodeCreate(treeId, node), {
+        onSuccess: (result: Tree) => {
+            queryClient.setQueryData<Tree[]>(queryStoreKeys.TREE_NODES_GET_ALL, (old) => (old ? [result, ...old] : []));
         },
-        {
-            onSuccess: (result: Tree) => {
-                queryClient.setQueryData<Tree[]>(queryStoreKeys.TREE_NODES_GET_ALL, (old) =>
-                    old ? [result, ...old] : []
-                );
-            },
-            // todo - handle onError
-        }
-    );
+        // todo - handle onError
+    });
 };
 
 const treeQueryStore = { useGetAll, useCreate };

@@ -2,8 +2,12 @@ import { useQueryStore } from "../../stores/queryStore";
 import { Button, CircularProgress, CardContent, Card, Grid, Typography } from "@mui/material";
 import AddTreeModal from "./modals/AddTreeModal";
 import useBooleanState from "../../hooks/useBooleanState";
+import { useResources } from "../../hooks/useResources";
+import AddIcon from "@mui/icons-material/Add";
 
 function Trees() {
+    const resources = useResources();
+
     const { treeStore } = useQueryStore();
     const { data: trees } = treeStore.useGetAll();
 
@@ -15,8 +19,8 @@ function Trees() {
         <>
             <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 Trees
-                <Button onClick={showAddTreeModal} sx={{ float: "right" }}>
-                    + Add
+                <Button onClick={showAddTreeModal} sx={{ marginLeft: 2 }} startIcon={<AddIcon />}>
+                    {resources.common_Add}
                 </Button>
             </Typography>
             <Grid container spacing={2}>

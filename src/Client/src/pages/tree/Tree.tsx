@@ -3,10 +3,14 @@ import { useRouteMatch } from "react-router-dom";
 import { useQueryStore } from "../../stores/queryStore";
 import { useCallback } from "react";
 import { NodePost } from "../../services/generatedServices";
+import { useResources } from "../../hooks/useResources";
+import AddIcon from "@mui/icons-material/Add";
 
 function Tree() {
     const match = useRouteMatch<{ id: string }>("/trees/:id");
     const id = match?.params.id;
+
+    const resources = useResources();
 
     const { treeStore, treeNodeStore } = useQueryStore();
     const { data: tree } = treeStore.useGet(id);
@@ -24,8 +28,8 @@ function Tree() {
         <>
             <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 {tree.label}
-                <Button onClick={onClickCreateNode} sx={{ float: "right" }}>
-                    + Add
+                <Button onClick={onClickCreateNode} sx={{ marginLeft: 2 }} startIcon={<AddIcon />}>
+                    {resources.common_Add}
                 </Button>
             </Typography>
             <Grid container spacing={2}>

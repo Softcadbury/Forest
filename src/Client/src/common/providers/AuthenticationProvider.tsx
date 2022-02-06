@@ -1,7 +1,6 @@
-import { ReactNode } from "react";
 import { useQueryStore } from "../../stores/queryStore";
 
-export const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
+export const AuthenticationProvider: React.FC = ({ children }) => {
     const {
         identityStore: { useGet },
     } = useQueryStore();

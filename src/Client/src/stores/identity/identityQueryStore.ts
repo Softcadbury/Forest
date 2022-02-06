@@ -7,9 +7,7 @@ const useGet = (): QueryObserverResult<boolean> => {
 
     return useQuery({
         queryKey: queryStoreKeys.IDENTITY_GET,
-        queryFn: async () => {
-            return await client.identityGet();
-        },
+        queryFn: async () => await client.identityGet(),
     });
 };
 
