@@ -1,5 +1,6 @@
 ﻿namespace Controller.ViewModels.Resources
 {
+    using System.ComponentModel.DataAnnotations;
     using System.Reflection;
     using global::Resources;
     using Microsoft.Extensions.Localization;
@@ -17,10 +18,13 @@
             }
         }
 
+        [Required]
         public string Common_Add { get; set; }
 
+        [Required]
         public string Common_Trees { get; set; }
 
+        [Required]
         public string Common_Label { get; set; }
     }
 

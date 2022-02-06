@@ -690,9 +690,9 @@ export interface INodePut {
 }
 
 export class Resources implements IResources {
-    common_Add?: string | undefined;
-    common_Trees?: string | undefined;
-    common_Label?: string | undefined;
+    common_Add!: string;
+    common_Trees!: string;
+    common_Label!: string;
 
     constructor(data?: IResources) {
         if (data) {
@@ -728,9 +728,9 @@ export class Resources implements IResources {
 }
 
 export interface IResources {
-    common_Add?: string | undefined;
-    common_Trees?: string | undefined;
-    common_Label?: string | undefined;
+    common_Add: string;
+    common_Trees: string;
+    common_Label: string;
 }
 
 export class Tree implements ITree {
