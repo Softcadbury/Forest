@@ -18,8 +18,8 @@ function Trees() {
     return (
         <>
             <Typography variant="h6" sx={{ marginBottom: 1 }}>
-                Trees
-                <Button onClick={showAddTreeModal} sx={{ marginLeft: 2 }} startIcon={<AddIcon />}>
+                {resources.common_Trees}
+                <Button onClick={showAddTreeModal} sx={{ marginLeft: 3 }} startIcon={<AddIcon />}>
                     {resources.common_Add}
                 </Button>
             </Typography>

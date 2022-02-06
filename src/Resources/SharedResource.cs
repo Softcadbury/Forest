@@ -16,5 +16,9 @@
         {
             return SupportedCultures.Select(p => new CultureInfo(p)).ToArray();
         }
+
+        public static CultureInfo GetCurrentCulture() => Thread.CurrentThread.CurrentUICulture;
+
+        public static string GetCurrentCultureName() => GetCurrentCulture().Name;
     }
 }

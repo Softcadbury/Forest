@@ -28,7 +28,7 @@ function Tree() {
         <>
             <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 {tree.label}
-                <Button onClick={onClickCreateNode} sx={{ marginLeft: 2 }} startIcon={<AddIcon />}>
+                <Button onClick={onClickCreateNode} sx={{ marginLeft: 3 }} startIcon={<AddIcon />}>
                     {resources.common_Add}
                 </Button>
             </Typography>
