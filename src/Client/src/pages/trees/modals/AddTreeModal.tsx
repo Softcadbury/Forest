@@ -1,8 +1,12 @@
-import { Box, Button, FormControl, Input, InputLabel, Modal } from "@mui/material";
-import { useCallback } from "react";
-import { useTextField } from "../../../hooks/useTextField";
+import { Box, Button, Modal } from "@mui/material";
+import { useForm } from "react-hook-form";
 import { useQueryStore } from "../../../stores/queryStore";
 import { TreePost } from "../../../services/generatedServices";
+import { FormInputText } from "../../../common/components/forms/FormInputText";
+import { useResources } from "../../../hooks/useResources";
+import AddIcon from "@mui/icons-material/Add";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface AddTreeModalProperties {
     isOpen: boolean;
@@ -21,17 +25,27 @@ const style = {
     p: 4,
 };
 
+interface IFormInput {
+    label: string;
+}
+
 function AddTreeModal({ isOpen, handleClose }: AddTreeModalProperties) {
+    const resources = useResources();
+
     const { treeStore } = useQueryStore();
     const { mutate: onCreateTree } = treeStore.useCreate();
-    const [treeLabel, , onTreeLabelChange] = useTextField();
 
-    const onClickCreateTree = useCallback(() => {
-        // todo handle bad arguments
-        var tree = new TreePost({ label: treeLabel });
+    const schema = yup.object({ label: yup.string().label(resources.common_Label).required().max(200) }).required();
+
+    const { control, handleSubmit } = useForm<IFormInput>({
+        resolver: yupResolver(schema),
+    });
+
+    const onSubmit = (data: IFormInput) => {
+        var tree = new TreePost({ label: data.label });
         onCreateTree(tree);
         handleClose();
-    }, [handleClose, onCreateTree, treeLabel]);
+    };
 
     return (
         <Modal
@@ -41,11 +55,23 @@ function AddTreeModal({ isOpen, handleClose }: AddTreeModalProperties) {
             aria-describedby="simple-modal-description"
         >
             <Box sx={style}>
-                <FormControl>
-                    <InputLabel htmlFor="my-input">Name</InputLabel>
-                    <Input id="my-input" aria-describedby="my-helper-text" onChange={onTreeLabelChange} />
-                </FormControl>
-                <Button onClick={onClickCreateTree}>+ Add</Button>
+                <FormInputText
+                    name="label"
+                    control={control}
+                    label={resources.common_Label}
+                    rules={{
+                        required: true,
+                        maxLength: 199,
+                    }}
+                />
+                <Button
+                    onClick={handleSubmit(onSubmit)}
+                    variant={"contained"}
+                    sx={{ marginTop: 2 }}
+                    startIcon={<AddIcon />}
+                >
+                    {resources.common_Add}
+                </Button>
             </Box>
         </Modal>
     );

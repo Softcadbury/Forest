@@ -692,6 +692,7 @@ export interface INodePut {
 export class Resources implements IResources {
     common_Add?: string | undefined;
     common_Trees?: string | undefined;
+    common_Label?: string | undefined;
 
     constructor(data?: IResources) {
         if (data) {
@@ -706,6 +707,7 @@ export class Resources implements IResources {
         if (_data) {
             this.common_Add = _data["common_Add"];
             this.common_Trees = _data["common_Trees"];
+            this.common_Label = _data["common_Label"];
         }
     }
 
@@ -720,6 +722,7 @@ export class Resources implements IResources {
         data = typeof data === 'object' ? data : {};
         data["common_Add"] = this.common_Add;
         data["common_Trees"] = this.common_Trees;
+        data["common_Label"] = this.common_Label;
         return data;
     }
 }
@@ -727,6 +730,7 @@ export class Resources implements IResources {
 export interface IResources {
     common_Add?: string | undefined;
     common_Trees?: string | undefined;
+    common_Label?: string | undefined;
 }
 
 export class Tree implements ITree {

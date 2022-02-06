@@ -120,6 +120,9 @@
   <data name="Common_Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="Common_Label" xml:space="preserve">
+    <value>Label</value>
+  </data>
   <data name="Common_Trees" xml:space="preserve">
     <value>Trees</value>
   </data>
