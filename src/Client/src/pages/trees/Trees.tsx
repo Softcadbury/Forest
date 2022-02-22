@@ -1,9 +1,10 @@
 import { useQueryStore } from "../../stores/queryStore";
-import { Button, CircularProgress, CardContent, Card, Grid, Typography } from "@mui/material";
+import { Button, CardContent, Card, Grid, Typography } from "@mui/material";
 import AddTreeModal from "./modals/AddTreeModal";
 import useBooleanState from "../../hooks/useBooleanState";
 import { useResources } from "../../hooks/useResources";
 import AddIcon from "@mui/icons-material/Add";
+import Loader from "../../common/components/loader/Loader";
 
 function Trees() {
     const resources = useResources();
@@ -13,7 +14,7 @@ function Trees() {
 
     const [isAddTreeModalOpen, showAddTreeModal, hideAddTreeModal] = useBooleanState(false);
 
-    if (!trees) return <CircularProgress />;
+    if (!trees) return <Loader />;
 
     return (
         <>

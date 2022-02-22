@@ -1,10 +1,11 @@
-import { CircularProgress, CardContent, Card, Button, Typography, Grid } from "@mui/material";
+import { CardContent, Card, Button, Typography, Grid } from "@mui/material";
 import { useRouteMatch } from "react-router-dom";
 import { useQueryStore } from "../../stores/queryStore";
 import { useCallback } from "react";
 import { NodePost } from "../../services/generatedServices";
 import { useResources } from "../../hooks/useResources";
 import AddIcon from "@mui/icons-material/Add";
+import Loader from "../../common/components/loader/Loader";
 
 function Tree() {
     const match = useRouteMatch<{ id: string }>("/trees/:id");
@@ -22,7 +23,7 @@ function Tree() {
         tree?.id && onCreateNode({ treeId: tree.id, node });
     }, [onCreateNode, tree]);
 
-    if (!tree || !nodes) return <CircularProgress />;
+    if (!tree || !nodes) return <Loader />;
 
     return (
         <>

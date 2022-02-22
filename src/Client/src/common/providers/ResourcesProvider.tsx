@@ -1,4 +1,3 @@
-import { CircularProgress } from "@mui/material";
 import { createContext } from "react";
 import { Resources } from "../../services/generatedServices";
 import { useQueryStore } from "../../stores/queryStore";
@@ -9,7 +8,7 @@ export const ResourcesProvider: React.FC = ({ children }) => {
     const { resourcesQueryStore } = useQueryStore();
     const { data, isLoading } = resourcesQueryStore.useGet();
 
-    if (isLoading || !data) return <CircularProgress />;
+    if (isLoading || !data) return null;
 
     return <ResourcesContext.Provider value={data}>{children}</ResourcesContext.Provider>;
 };

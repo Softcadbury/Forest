@@ -1,9 +1,10 @@
-import { Box, CircularProgress, Container, GlobalStyles } from "@mui/material";
+import { Box, Container, GlobalStyles } from "@mui/material";
 import { Fragment, lazy, Suspense } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { AuthenticationProvider } from "./common/providers/AuthenticationProvider";
 import Menu from "./common/components/menu/Menu";
 import { ResourcesProvider } from "./common/providers/ResourcesProvider";
+import Loader from "./common/components/loader/Loader";
 
 const Tree = lazy(() => import("./pages/tree/Tree"));
 const Trees = lazy(() => import("./pages/trees/Trees"));
@@ -19,8 +20,8 @@ function App() {
             <AuthenticationProvider>
                 <ResourcesProvider>
                     <BrowserRouter>
-                        <Suspense fallback={<CircularProgress />}>
-                            <Menu />
+                        <Menu />
+                        <Suspense fallback={<Loader />}>
                             <Container>
                                 <Box padding={5}>
                                     <Switch>
