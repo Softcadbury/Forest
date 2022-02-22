@@ -7,9 +7,9 @@
   </ItemGroup>  
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.1" />
-    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.376">
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.2" />
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.406">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -7,10 +7,10 @@
     using Repository.Entities;
 
     [TestFixture]
-    public class TestTreeController
+    public class TestTreeController : IDisposable
     {
-        private TestEntityHelper _testEntityHelper;
-        private TreeController _treeController;
+        private TestEntityHelper _testEntityHelper = null!;
+        private TreeController _treeController = null!;
 
         [SetUp]
         public void Setup()
@@ -30,8 +30,22 @@
 
             // Assert
             TreeViewModel value = result.GetOkContent();
-            Assert.That(value.Id, Is.EqualTo(tree.Id));
-            Assert.That(value.Label, Is.EqualTo(tree.Label));
+            Assert.Multiple(() =>
+            {
+                Assert.That(value.Id, Is.EqualTo(tree.Id));
+                Assert.That(value.Label, Is.EqualTo(tree.Label));
+            });
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool dispose)
+        {
+            _testEntityHelper.Dispose();
         }
     }
 }

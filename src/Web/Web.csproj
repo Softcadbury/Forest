@@ -8,14 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.1" />
-    <PackageReference Include="NSwag.CodeGeneration.TypeScript" Version="13.15.5" />
-    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.376">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.2" />
+    <PackageReference Include="NSwag.CodeGeneration.TypeScript" Version="13.15.9" />
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.406">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.2" />
   </ItemGroup>
 
   <ItemGroup>
