@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 
-export default function Loader() {
+export const Loader: React.FC = () => {
     return (
         <Box sx={{ display: "flex", marginTop: "40px" }}>
             <Box sx={{ margin: "auto" }}>
@@ -8,4 +8,4 @@ export default function Loader() {
             </Box>
         </Box>
     );
-}
+};

@@ -1,12 +1,12 @@
 import { useQueryStore } from "../../stores/queryStore";
 import { Button, CardContent, Card, Grid, Typography } from "@mui/material";
-import AddTreeModal from "./modals/AddTreeModal";
-import useBooleanState from "../../hooks/useBooleanState";
 import { useResources } from "../../hooks/useResources";
 import AddIcon from "@mui/icons-material/Add";
-import Loader from "../../common/components/loader/Loader";
+import { useBooleanState } from "../../hooks";
+import { Loader } from "../../common/components";
+import AddTreeModal from "./modals/AddTreeModal";
 
-function Trees() {
+const Trees: React.FC = () => {
     const resources = useResources();
 
     const { treeStore } = useQueryStore();
@@ -38,6 +38,6 @@ function Trees() {
             <AddTreeModal isOpen={isAddTreeModalOpen} handleClose={hideAddTreeModal} />
         </>
     );
-}
+};
 
 export default Trees;

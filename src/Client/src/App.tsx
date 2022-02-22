@@ -1,15 +1,14 @@
 import { Box, Container, GlobalStyles } from "@mui/material";
 import { Fragment, lazy, Suspense } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Loader, Menu } from "./common/components";
 import { AuthenticationProvider } from "./common/providers/AuthenticationProvider";
-import Menu from "./common/components/menu/Menu";
 import { ResourcesProvider } from "./common/providers/ResourcesProvider";
-import Loader from "./common/components/loader/Loader";
 
 const Tree = lazy(() => import("./pages/tree/Tree"));
 const Trees = lazy(() => import("./pages/trees/Trees"));
 
-function App() {
+const App: React.FC = () => {
     return (
         <Fragment>
             <GlobalStyles
@@ -43,6 +42,6 @@ function App() {
             </AuthenticationProvider>
         </Fragment>
     );
-}
+};
 
 export default App;

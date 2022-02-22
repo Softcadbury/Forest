@@ -2,13 +2,13 @@ import { Box, Button, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useQueryStore } from "../../../stores/queryStore";
 import { TreePost } from "../../../services/generatedServices";
-import { FormInputText } from "../../../common/components/forms/FormInputText";
 import { useResources } from "../../../hooks/useResources";
 import AddIcon from "@mui/icons-material/Add";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FormInputText } from "../../../common/components";
 
-interface AddTreeModalProperties {
+interface AddTreeModalProps {
     isOpen: boolean;
     handleClose: () => void;
 }
@@ -29,7 +29,7 @@ interface IFormInput {
     label: string;
 }
 
-function AddTreeModal({ isOpen, handleClose }: AddTreeModalProperties) {
+const AddTreeModal: React.FC<AddTreeModalProps> = ({ isOpen, handleClose }) => {
     const resources = useResources();
 
     const { treeStore } = useQueryStore();
@@ -75,6 +75,6 @@ function AddTreeModal({ isOpen, handleClose }: AddTreeModalProperties) {
             </Box>
         </Modal>
     );
-}
+};
 
 export default AddTreeModal;

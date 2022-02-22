@@ -1,7 +1,9 @@
 import { TextField } from "@mui/material";
 import { Controller, UseControllerProps } from "react-hook-form";
 
-export function FormInputText<T>({ name, control, rules, label }: UseControllerProps<T> & { label: string}) {
+type FormInputTextProps<T> = UseControllerProps<T> & { label: string };
+
+export const FormInputText = <T extends {}>({ name, control, rules, label }: FormInputTextProps<T>) => {
     return (
         <Controller
             name={name}
@@ -21,4 +23,4 @@ export function FormInputText<T>({ name, control, rules, label }: UseControllerP
             )}
         />
     );
-}
+};

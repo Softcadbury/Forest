@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ResourcesContext } from "../common/providers/ResourcesProvider";
+import { ResourcesContext } from "../common/providers";
 import { Resources } from "../services/generatedServices";
 
 export const useResources = (): Resources => {

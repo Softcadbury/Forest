@@ -3,11 +3,11 @@ import { useRouteMatch } from "react-router-dom";
 import { useQueryStore } from "../../stores/queryStore";
 import { useCallback } from "react";
 import { NodePost } from "../../services/generatedServices";
-import { useResources } from "../../hooks/useResources";
 import AddIcon from "@mui/icons-material/Add";
-import Loader from "../../common/components/loader/Loader";
+import { useResources } from "../../hooks";
+import { Loader } from "../../common/components";
 
-function Tree() {
+const Tree: React.FC = () => {
     const match = useRouteMatch<{ id: string }>("/trees/:id");
     const id = match?.params.id;
 
@@ -46,6 +46,6 @@ function Tree() {
             </Grid>
         </>
     );
-}
+};
 
 export default Tree;

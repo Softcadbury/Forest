@@ -1,6 +1,6 @@
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 
-export default function Menu() {
+export const Menu: React.FC = () => {
     return (
         <Box>
             <AppBar position="static">
@@ -12,4 +12,4 @@ export default function Menu() {
             </AppBar>
         </Box>
     );
-}
+};
