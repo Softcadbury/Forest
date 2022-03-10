@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="..\.assets\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
 </Project>
