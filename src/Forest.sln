@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28CBC7A3-A745-4B4F-9AB5-BEE826578399}"
 	ProjectSection(SolutionItems) = preProject
-		.assets\.editorconfig = .assets\.editorconfig
+		.editorconfig = .editorconfig
 		..\README.md = ..\README.md
 		.assets\SharedProjectConfiguration.targets = .assets\SharedProjectConfiguration.targets
 	EndProjectSection
@@ -30,13 +30,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Common", "0 - Common", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resources", "Resources\Resources.csproj", "{B44B4311-9020-477E-A7A7-5E41CE42DE4D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{FE783E45-5E66-4A6E-8D25-58CBCE155C93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{FE783E45-5E66-4A6E-8D25-58CBCE155C93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Tests", "Common.Tests\Common.Tests.csproj", "{3E13D4FD-A585-47B4-8CE3-3CCAB4C18295}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Tests", "Common.Tests\Common.Tests.csproj", "{3E13D4FD-A585-47B4-8CE3-3CCAB4C18295}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resources.Test", "Resources.Test\Resources.Test.csproj", "{2F377F89-3E12-4241-BAA9-3D99DCC36B9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources.Test", "Resources.Test\Resources.Test.csproj", "{2F377F89-3E12-4241-BAA9-3D99DCC36B9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Tests", "Web.Tests\Web.Tests.csproj", "{AEFD4FA5-4394-4653-9836-9F455C3EF40D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "Web.Tests\Web.Tests.csproj", "{AEFD4FA5-4394-4653-9836-9F455C3EF40D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
