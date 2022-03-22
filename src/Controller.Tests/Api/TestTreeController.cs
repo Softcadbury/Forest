@@ -1,5 +1,6 @@
 ﻿namespace Controller.Tests.Api
 {
+    using Common.Tests.Base;
     using Common.Tests.TestHelpers;
     using Controller.Api;
     using Controller.ViewModels.Tree;
@@ -7,23 +8,21 @@
     using Repository.Entities;
 
     [TestFixture]
-    public class TestTreeController : IDisposable
+    public class TestTreeController : SqlIntegrationTestBase
     {
-        private TestEntityHelper _testEntityHelper = null!;
         private TreeController _treeController = null!;
 
         [SetUp]
         public void Setup()
         {
-            _testEntityHelper = new TestEntityHelper();
-            _treeController = new TreeController(_testEntityHelper.ApplicationDbContext, _testEntityHelper.CurrentContext, TestHelper.GetAutoMapper());
+            _treeController = new TreeController(ApplicationDbContext, CurrentContext, TestHelper.GetAutoMapper());
         }
 
         [Test]
         public async Task TreeController_Get_TreeInDatabase_ReturnTree()
         {
             // Arrange
-            Tree tree = await _testEntityHelper.CreateTree();
+            Tree tree = await CreateTree();
 
             // Act
             var result = await _treeController.Get(tree.Id);
@@ -37,15 +36,24 @@
             });
         }
 
-        public void Dispose()
+        [Test]
+        public async Task TreeController_GetAll_TreesInDatabase_ReturnTrees()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            // Arrange
+            Tree tree1 = await CreateTree();
+            Tree tree2 = await CreateTree();
 
-        protected virtual void Dispose(bool dispose)
-        {
-            _testEntityHelper.Dispose();
+            // Act
+            var result = await _treeController.GetAll();
+
+            // Assert
+            List<TreeViewModel> value = result.GetOkContent().ToList();
+            Assert.That(value, Has.Count.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(value[0].Id, Is.EqualTo(tree1.Id));
+                Assert.That(value[1].Id, Is.EqualTo(tree2.Id));
+            });
         }
     }
 }

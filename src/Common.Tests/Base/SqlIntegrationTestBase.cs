@@ -1,24 +1,26 @@
-﻿namespace Common.Tests.TestHelpers
+﻿namespace Common.Tests.Base
 {
     using Common.Misc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+    using NUnit.Framework;
     using Repository.Contexts;
     using Repository.Entities;
 
-    public class TestEntityHelper : IDisposable
+    public abstract class SqlIntegrationTestBase : IDisposable
     {
-        public CurrentContext CurrentContext { get; }
+        public CurrentContext CurrentContext { get; private set; } = null!;
 
-        public ApplicationDbContext ApplicationDbContext { get; }
+        public ApplicationDbContext ApplicationDbContext { get; private set; } = null!;
 
-        public TestEntityHelper(string? tenantName = null)
+        [SetUp]
+        public void SetUp()
         {
             DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             var serviceCollection = new ServiceCollection();
             using ApplicationDbContext context = new ApplicationDbContext(options, serviceCollection.BuildServiceProvider());
 
-            tenantName ??= Guid.NewGuid().ToString();
+            string tenantName = Guid.NewGuid().ToString();
             Tenant? tenant = context.Tenants.SingleOrDefault(p => p.Name == tenantName);
 
             if (tenant == null)
