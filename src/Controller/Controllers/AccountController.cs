@@ -27,8 +27,8 @@
         {
             (Guid userId, Guid tenantId) = await GetOrCreateDefaultUserAndTenant();
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-            identity.AddClaim(new Claim(ApplicationClaims.TenantId, tenantId.ToString()));
             identity.AddClaim(new Claim(ApplicationClaims.UserId, userId.ToString()));
+            identity.AddClaim(new Claim(ApplicationClaims.TenantId, tenantId.ToString()));
             var principal = new ClaimsPrincipal(identity);
             var authProperties = new AuthenticationProperties();
 
@@ -66,7 +66,7 @@
 
             await _applicationDbContext.SaveChangesAsync();
 
-            return (tenant.Id, user.Id);
+            return (user.Id, tenant.Id);
         }
     }
 }

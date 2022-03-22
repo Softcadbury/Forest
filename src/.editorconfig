@@ -44,3 +44,15 @@ dotnet_diagnostic.SA1204.severity = none
 
 # CA1812: Program is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static members, make it static (Shared in Visual Basic).
 dotnet_diagnostic.CA1812.severity = none
+
+# CA2201: Do not raise reserved exception types
+dotnet_diagnostic.CA2201.severity = none
+
+# SA1615: Element return value should be documented
+dotnet_diagnostic.SA1615.severity = none
+
+# SA1629: Documentation text should end with a period
+dotnet_diagnostic.SA1629.severity = none
+
+# SA1202: Elements should be ordered by access
+dotnet_diagnostic.SA1202.severity = none

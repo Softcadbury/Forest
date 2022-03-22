@@ -2,6 +2,7 @@
 {
     using System.Linq.Expressions;
     using Common.Misc;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,8 @@
     {
         private readonly IServiceProvider _serviceProvider;
 
+        private bool HasSaved { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IServiceProvider serviceProvider)
             : base(options)
         {
@@ -36,14 +39,25 @@
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
+            ThrowIfMultipleSaves();
             ThrowIfMultitenants();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
+            ThrowIfMultipleSaves();
             ThrowIfMultitenants();
             return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        /// <summary>
+        /// Allows multiple calls to SaveChangesAsync in a same scope (no call to ThrowIfMultipleSaves)
+        /// </summary>
+        public Task<int> MultipleSaveChangesAsync()
+        {
+            ThrowIfMultitenants();
+            return base.SaveChangesAsync(true);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -76,6 +90,25 @@
             {
                 builder.Entity(type).Property(typeof(DateTime), "CreationDate").HasDefaultValueSql("GETUTCDATE()");
             }
+        }
+
+        private void ThrowIfMultipleSaves()
+        {
+#if DEBUG
+            IHttpContextAccessor? httpContextAccessor = _serviceProvider.GetService<IHttpContextAccessor>();
+
+            if (httpContextAccessor?.HttpContext == null)
+            {
+                return;
+            }
+
+            if (HasSaved)
+            {
+                throw new MultipleSavesException("You should not call SaveChanges or SaveChangesAsync two times in the same http request.");
+            }
+
+            HasSaved = true;
+#endif
         }
 
         private void ThrowIfMultitenants()

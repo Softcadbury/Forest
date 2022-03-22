@@ -14,32 +14,29 @@
         public ApplicationDbContext ApplicationDbContext { get; private set; } = null!;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
             DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             var serviceCollection = new ServiceCollection();
-            using ApplicationDbContext context = new ApplicationDbContext(options, serviceCollection.BuildServiceProvider());
+            await using ApplicationDbContext contextWithoutTenant = new ApplicationDbContext(options, serviceCollection.BuildServiceProvider());
 
             string tenantName = Guid.NewGuid().ToString();
-            Tenant? tenant = context.Tenants.SingleOrDefault(p => p.Name == tenantName);
+            Tenant? tenant = contextWithoutTenant.Tenants.SingleOrDefault(p => p.Name == tenantName);
 
             if (tenant == null)
             {
                 tenant = new Tenant(tenantName);
-                context.Tenants.Add(tenant);
-                context.SaveChanges();
+                contextWithoutTenant.Tenants.Add(tenant);
+                await contextWithoutTenant.SaveChangesAsync();
             }
 
-            CurrentContext = new CurrentContext
-            {
-                TenantId = tenant.Id,
-            };
-
+            CurrentContext = new CurrentContext { TenantId = tenant.Id };
             serviceCollection.AddScoped(_ => CurrentContext);
+
             ApplicationDbContext = new ApplicationDbContext(options, serviceCollection.BuildServiceProvider());
         }
 
-        public async Task<Tree> CreateTree(string? label = null)
+        protected async Task<Tree> CreateTree(string? label = null)
         {
             label ??= Guid.NewGuid().ToString();
 
@@ -50,7 +47,7 @@
             return tree;
         }
 
-        public async Task<Node> CreateNode(Guid? treeId = null, string? label = null)
+        protected async Task<Node> CreateNode(Guid? treeId = null, string? label = null)
         {
             if (treeId == null)
             {
