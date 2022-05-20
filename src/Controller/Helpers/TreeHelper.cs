@@ -1,70 +1,69 @@
-﻿namespace Controller.Helpers
+﻿namespace Controller.Helpers;
+
+using System.Text;
+using Repository.Entities;
+
+public static class TreeHelper
 {
-    using System.Text;
-    using Repository.Entities;
-
-    public static class TreeHelper
+    public static string PrettyPrintTree(Tree tree)
     {
-        public static string PrettyPrintTree(Tree tree)
+        var builder = new StringBuilder();
+        var branch = new List<(Node Node, int Level, bool IsLast)>();
+
+        builder.Append(tree.Label);
+
+        for (int i = 0; i < tree.Nodes.Count; i++)
         {
-            var builder = new StringBuilder();
-            var branch = new List<(Node Node, int Level, bool IsLast)>();
-
-            builder.Append(tree.Label);
-
-            for (int i = 0; i < tree.Nodes.Count; i++)
-            {
-                AddNodeToBranch(branch, node: tree.Nodes[i], level: 0, isLast: i == tree.Nodes.Count - 1);
-                PrettyPrintNode(builder, branch);
-            }
-
-            return builder.ToString();
+            AddNodeToBranch(branch, node: tree.Nodes[i], level: 0, isLast: i == tree.Nodes.Count - 1);
+            PrettyPrintNode(builder, branch);
         }
 
-        private static void PrettyPrintNode(StringBuilder builder, List<(Node Node, int Level, bool IsLast)> branch)
+        return builder.ToString();
+    }
+
+    private static void PrettyPrintNode(StringBuilder builder, List<(Node Node, int Level, bool IsLast)> branch)
+    {
+        (Node node, int nodeLevel, bool isNodeLast) = branch.Last();
+        AppendNodeToStringBuilder(builder, branch, isNodeLast);
+
+        bool isNodeAlreadyDisplayed = branch.Take(branch.Count - 1).Any(p => p.Node.Id == node.Id);
+        if (isNodeAlreadyDisplayed)
         {
-            (Node node, int nodeLevel, bool isNodeLast) = branch.Last();
+            var infiniteNode = new Node(Guid.NewGuid(), Guid.NewGuid(), "[...]");
+            AddNodeToBranch(branch, node: infiniteNode, level: nodeLevel + 1, isLast: isNodeLast);
             AppendNodeToStringBuilder(builder, branch, isNodeLast);
-
-            bool isNodeAlreadyDisplayed = branch.Take(branch.Count - 1).Any(p => p.Node.Id == node.Id);
-            if (isNodeAlreadyDisplayed)
-            {
-                var infiniteNode = new Node(Guid.NewGuid(), Guid.NewGuid(), "[...]");
-                AddNodeToBranch(branch, node: infiniteNode, level: nodeLevel + 1, isLast: isNodeLast);
-                AppendNodeToStringBuilder(builder, branch, isNodeLast);
-                return;
-            }
-
-            for (int i = 0; i < node.Children.Count; i++)
-            {
-                AddNodeToBranch(branch, node: node.Children[i], level: nodeLevel + 1, isLast: i == node.Children.Count - 1);
-                PrettyPrintNode(builder, branch);
-            }
+            return;
         }
 
-        private static void AddNodeToBranch(List<(Node Node, int Level, bool IsLast)> branch, Node node, int level, bool isLast)
+        for (int i = 0; i < node.Children.Count; i++)
         {
-            int numberOfNodesToRemove = branch.Count - level;
-            if (numberOfNodesToRemove > 0)
-            {
-                branch.RemoveRange(level, numberOfNodesToRemove);
-            }
-
-            branch.Add((node, level, isLast));
+            AddNodeToBranch(branch, node: node.Children[i], level: nodeLevel + 1, isLast: i == node.Children.Count - 1);
+            PrettyPrintNode(builder, branch);
         }
+    }
 
-        private static void AppendNodeToStringBuilder(StringBuilder builder, List<(Node Node, int Level, bool IsLast)> branch, bool isNodeLast)
+    private static void AddNodeToBranch(List<(Node Node, int Level, bool IsLast)> branch, Node node, int level, bool isLast)
+    {
+        int numberOfNodesToRemove = branch.Count - level;
+        if (numberOfNodesToRemove > 0)
         {
-            builder.Append(Environment.NewLine);
-
-            for (int i = 0; i < branch.Count - 1; i++)
-            {
-                builder.Append(branch[i].IsLast ? " " : "|");
-                builder.Append("   ");
-            }
-
-            builder.Append(isNodeLast ? "└── " : "├── ");
-            builder.Append(branch[^1].Node.Label);
+            branch.RemoveRange(level, numberOfNodesToRemove);
         }
+
+        branch.Add((node, level, isLast));
+    }
+
+    private static void AppendNodeToStringBuilder(StringBuilder builder, List<(Node Node, int Level, bool IsLast)> branch, bool isNodeLast)
+    {
+        builder.Append(Environment.NewLine);
+
+        for (int i = 0; i < branch.Count - 1; i++)
+        {
+            builder.Append(branch[i].IsLast ? " " : "|");
+            builder.Append("   ");
+        }
+
+        builder.Append(isNodeLast ? "└── " : "├── ");
+        builder.Append(branch[^1].Node.Label);
     }
 }

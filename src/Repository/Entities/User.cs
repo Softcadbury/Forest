@@ -1,14 +1,13 @@
-﻿namespace Repository.Entities
+﻿namespace Repository.Entities;
+
+using Microsoft.AspNetCore.Identity;
+
+public class User : IdentityUser<Guid>
 {
-    using Microsoft.AspNetCore.Identity;
+    public List<Tenant> Tenants { get; }
 
-    public class User : IdentityUser<Guid>
+    public User()
     {
-        public List<Tenant> Tenants { get; }
-
-        public User()
-        {
-            Tenants = new List<Tenant>();
-        }
+        Tenants = new List<Tenant>();
     }
 }

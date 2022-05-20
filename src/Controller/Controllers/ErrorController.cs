@@ -1,15 +1,14 @@
-﻿namespace Controller.Controllers
-{
-    using Controller.Base;
-    using Microsoft.AspNetCore.Mvc;
+﻿namespace Controller.Controllers;
 
-    [Route("error")]
-    public class ErrorController : CustomControllerBase
+using Controller.Base;
+using Microsoft.AspNetCore.Mvc;
+
+[Route("error")]
+public class ErrorController : CustomControllerBase
+{
+    [Route("")]
+    public IActionResult Index()
     {
-        [Route("")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        return View();
     }
 }

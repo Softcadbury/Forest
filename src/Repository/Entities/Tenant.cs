@@ -1,14 +1,13 @@
-﻿namespace Repository.Entities
+﻿namespace Repository.Entities;
+
+using Repository.Entities.Base;
+
+public class Tenant : EntityBase
 {
-    using Repository.Entities.Base;
+    public string Name { get; set; }
 
-    public class Tenant : EntityBase
+    public Tenant(string name)
     {
-        public string Name { get; set; }
-
-        public Tenant(string name)
-        {
-            Name = name;
-        }
+        Name = name;
     }
 }

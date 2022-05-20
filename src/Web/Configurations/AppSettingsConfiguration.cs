@@ -1,12 +1,11 @@
-﻿namespace Web.Configurations
-{
-    using Common.AppSettings;
+﻿namespace Web.Configurations;
 
-    public static class AppSettingsConfiguration
+using Common.AppSettings;
+
+public static class AppSettingsConfiguration
+{
+    public static void ConfigureSettings(this IServiceCollection services, IConfiguration configuration)
     {
-        public static void ConfigureSettings(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.Configure<DevelopmentSettings>(configuration.GetSection(DevelopmentSettings.SectionName));
-        }
+        services.Configure<DevelopmentSettings>(configuration.GetSection(DevelopmentSettings.SectionName));
     }
 }

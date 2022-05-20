@@ -1,10 +1,9 @@
-﻿namespace Controller.ViewModels.Node
-{
-    using System.ComponentModel.DataAnnotations;
+﻿namespace Controller.ViewModels.Node;
 
-    public class NodeViewModelPost
-    {
-        [Required]
-        public string Label { get; set; } = null!;
-    }
+using System.ComponentModel.DataAnnotations;
+
+public class NodeViewModelPost
+{
+    [Required]
+    public string Label { get; set; } = null!;
 }

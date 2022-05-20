@@ -1,9 +1,8 @@
-﻿namespace Controller.ViewModels.Node
-{
-    using Controller.Base;
+﻿namespace Controller.ViewModels.Node;
 
-    public class NodeViewModel : ViewModelBase
-    {
-        public string Label { get; set; } = null!;
-    }
+using Controller.Base;
+
+public class NodeViewModel : ViewModelBase
+{
+    public string Label { get; set; } = null!;
 }

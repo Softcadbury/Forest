@@ -1,7 +1,6 @@
-﻿namespace Common.Misc
+﻿namespace Common.Misc;
+
+public class CurrentContext
 {
-    public class CurrentContext
-    {
-        public Guid TenantId { get; set; }
-    }
+    public Guid TenantId { get; set; }
 }

@@ -1,10 +1,9 @@
-﻿namespace Controller.ViewModels.Tree
-{
-    using System.ComponentModel.DataAnnotations;
+﻿namespace Controller.ViewModels.Tree;
 
-    public class TreeViewModelPost
-    {
-        [Required]
-        public string Label { get; set; } = null!;
-    }
+using System.ComponentModel.DataAnnotations;
+
+public class TreeViewModelPost
+{
+    [Required]
+    public string Label { get; set; } = null!;
 }

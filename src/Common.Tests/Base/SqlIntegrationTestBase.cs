@@ -1,78 +1,77 @@
-﻿namespace Common.Tests.Base
+﻿namespace Common.Tests.Base;
+
+using Common.Misc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
+using Repository.Contexts;
+using Repository.Entities;
+
+public abstract class SqlIntegrationTestBase : IDisposable
 {
-    using Common.Misc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.DependencyInjection;
-    using NUnit.Framework;
-    using Repository.Contexts;
-    using Repository.Entities;
+    public CurrentContext CurrentContext { get; private set; } = null!;
 
-    public abstract class SqlIntegrationTestBase : IDisposable
+    public ApplicationDbContext ApplicationDbContext { get; private set; } = null!;
+
+    [SetUp]
+    public async Task SetUp()
     {
-        public CurrentContext CurrentContext { get; private set; } = null!;
+        DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+        var serviceCollection = new ServiceCollection();
+        await using ApplicationDbContext contextWithoutTenant = new ApplicationDbContext(options, serviceCollection.BuildServiceProvider());
 
-        public ApplicationDbContext ApplicationDbContext { get; private set; } = null!;
+        string tenantName = Guid.NewGuid().ToString();
+        Tenant? tenant = contextWithoutTenant.Tenants.SingleOrDefault(p => p.Name == tenantName);
 
-        [SetUp]
-        public async Task SetUp()
+        if (tenant == null)
         {
-            DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-            var serviceCollection = new ServiceCollection();
-            await using ApplicationDbContext contextWithoutTenant = new ApplicationDbContext(options, serviceCollection.BuildServiceProvider());
-
-            string tenantName = Guid.NewGuid().ToString();
-            Tenant? tenant = contextWithoutTenant.Tenants.SingleOrDefault(p => p.Name == tenantName);
-
-            if (tenant == null)
-            {
-                tenant = new Tenant(tenantName);
-                contextWithoutTenant.Tenants.Add(tenant);
-                await contextWithoutTenant.SaveChangesAsync();
-            }
-
-            CurrentContext = new CurrentContext { TenantId = tenant.Id };
-            serviceCollection.AddScoped(_ => CurrentContext);
-
-            ApplicationDbContext = new ApplicationDbContext(options, serviceCollection.BuildServiceProvider());
+            tenant = new Tenant(tenantName);
+            contextWithoutTenant.Tenants.Add(tenant);
+            await contextWithoutTenant.SaveChangesAsync();
         }
 
-        protected async Task<Tree> CreateTree(string? label = null)
+        CurrentContext = new CurrentContext { TenantId = tenant.Id };
+        serviceCollection.AddScoped(_ => CurrentContext);
+
+        ApplicationDbContext = new ApplicationDbContext(options, serviceCollection.BuildServiceProvider());
+    }
+
+    protected async Task<Tree> CreateTree(string? label = null)
+    {
+        label ??= Guid.NewGuid().ToString();
+
+        Tree tree = new Tree(CurrentContext.TenantId, label);
+        ApplicationDbContext.Trees.Add(tree);
+        await ApplicationDbContext.SaveChangesAsync();
+
+        return tree;
+    }
+
+    protected async Task<Node> CreateNode(Guid? treeId = null, string? label = null)
+    {
+        if (treeId == null)
         {
-            label ??= Guid.NewGuid().ToString();
-
-            Tree tree = new Tree(CurrentContext.TenantId, label);
-            ApplicationDbContext.Trees.Add(tree);
-            await ApplicationDbContext.SaveChangesAsync();
-
-            return tree;
+            Tree tree = await CreateTree();
+            treeId = tree.Id;
         }
 
-        protected async Task<Node> CreateNode(Guid? treeId = null, string? label = null)
-        {
-            if (treeId == null)
-            {
-                Tree tree = await CreateTree();
-                treeId = tree.Id;
-            }
+        label ??= Guid.NewGuid().ToString();
 
-            label ??= Guid.NewGuid().ToString();
+        Node node = new Node(CurrentContext.TenantId, treeId.Value, label);
+        ApplicationDbContext.Nodes.Add(node);
+        await ApplicationDbContext.SaveChangesAsync();
 
-            Node node = new Node(CurrentContext.TenantId, treeId.Value, label);
-            ApplicationDbContext.Nodes.Add(node);
-            await ApplicationDbContext.SaveChangesAsync();
+        return node;
+    }
 
-            return node;
-        }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool dispose)
-        {
-            ApplicationDbContext.Dispose();
-        }
+    protected virtual void Dispose(bool dispose)
+    {
+        ApplicationDbContext.Dispose();
     }
 }

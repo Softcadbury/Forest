@@ -1,18 +1,17 @@
-﻿namespace Repository.Entities
+﻿namespace Repository.Entities;
+
+using Repository.Entities.Base;
+
+public class Tree : TenantEntityBase
 {
-    using Repository.Entities.Base;
+    public string Label { get; set; }
 
-    public class Tree : TenantEntityBase
+    public List<Node> Nodes { get; }
+
+    public Tree(Guid tenantId, string label)
+        : base(tenantId)
     {
-        public string Label { get; set; }
-
-        public List<Node> Nodes { get; }
-
-        public Tree(Guid tenantId, string label)
-            : base(tenantId)
-        {
-            Label = label;
-            Nodes = new List<Node>();
-        }
+        Label = label;
+        Nodes = new List<Node>();
     }
 }

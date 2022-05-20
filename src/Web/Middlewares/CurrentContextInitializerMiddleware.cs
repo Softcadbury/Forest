@@ -1,23 +1,22 @@
-﻿namespace Web.Middlewares
+﻿namespace Web.Middlewares;
+
+using Common.Misc;
+using Microsoft.AspNetCore.Http;
+using Namotion.Reflection;
+
+public class CurrentContextInitializerMiddleware
 {
-    using Common.Misc;
-    using Microsoft.AspNetCore.Http;
-    using Namotion.Reflection;
+    private readonly RequestDelegate _next;
 
-    public class CurrentContextInitializerMiddleware
+    public CurrentContextInitializerMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public CurrentContextInitializerMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
+    public async Task Invoke(HttpContext context, CurrentContext currentContext)
+    {
+        currentContext.TenantId = context.User.Claims.TryGetPropertyValue<Guid>("TenantId");
 
-        public async Task Invoke(HttpContext context, CurrentContext currentContext)
-        {
-            currentContext.TenantId = context.User.Claims.TryGetPropertyValue<Guid>("TenantId");
-
-            await _next(context);
-        }
+        await _next(context);
     }
 }

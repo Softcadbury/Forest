@@ -1,8 +1,7 @@
-﻿namespace Common.Authentication
+﻿namespace Common.Authentication;
+
+public static class ApplicationClaims
 {
-    public static class ApplicationClaims
-    {
-        public const string TenantId = "TenantId";
-        public const string UserId = "UserId";
-    }
+    public const string TenantId = "TenantId";
+    public const string UserId = "UserId";
 }

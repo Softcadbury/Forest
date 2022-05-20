@@ -1,12 +1,11 @@
-﻿namespace Repository.Entities.Base
-{
-    public abstract class TenantEntityBase : EntityBase
-    {
-        public Guid TenantId { get; set; }
+﻿namespace Repository.Entities.Base;
 
-        protected TenantEntityBase(Guid tenantId)
-        {
-            TenantId = tenantId;
-        }
+public abstract class TenantEntityBase : EntityBase
+{
+    public Guid TenantId { get; set; }
+
+    protected TenantEntityBase(Guid tenantId)
+    {
+        TenantId = tenantId;
     }
 }

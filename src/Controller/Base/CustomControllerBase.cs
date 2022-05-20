@@ -1,9 +1,8 @@
-﻿namespace Controller.Base
-{
-    using Microsoft.AspNetCore.Mvc;
+﻿namespace Controller.Base;
 
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public abstract class CustomControllerBase : Controller
-    {
-    }
+using Microsoft.AspNetCore.Mvc;
+
+[ApiExplorerSettings(IgnoreApi = true)]
+public abstract class CustomControllerBase : Controller
+{
 }

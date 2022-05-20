@@ -1,17 +1,16 @@
-﻿namespace Controller.Api
-{
-    using Controller.Base;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+﻿namespace Controller.Api;
 
-    [Route("api/identity")]
-    public class IdentityController : CustomApiControllerBase
+using Controller.Base;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+[Route("api/identity")]
+public class IdentityController : CustomApiControllerBase
+{
+    [HttpGet("")]
+    [AllowAnonymous]
+    public ActionResult<bool> Get()
     {
-        [HttpGet("")]
-        [AllowAnonymous]
-        public ActionResult<bool> Get()
-        {
-            return Ok(User.Identity?.IsAuthenticated ?? false);
-        }
+        return Ok(User.Identity?.IsAuthenticated ?? false);
     }
 }

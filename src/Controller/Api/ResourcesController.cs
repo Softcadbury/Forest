@@ -1,33 +1,32 @@
-﻿namespace Controller.Api
+﻿namespace Controller.Api;
+
+using System.Collections.Concurrent;
+using Controller.Base;
+using Controller.ViewModels.Resources;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using Resources;
+
+[Route("api/resources")]
+public class ResourcesController : CustomApiControllerBase
 {
-    using System.Collections.Concurrent;
-    using Controller.Base;
-    using Controller.ViewModels.Resources;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Localization;
-    using Resources;
+    private static readonly ConcurrentDictionary<string, ResourcesViewModel> CachedResources = new();
+    private readonly IStringLocalizer<SharedResource> _localizer;
 
-    [Route("api/resources")]
-    public class ResourcesController : CustomApiControllerBase
+    public ResourcesController(IStringLocalizer<SharedResource> localizer)
     {
-        private static readonly ConcurrentDictionary<string, ResourcesViewModel> CachedResources = new();
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        _localizer = localizer;
+    }
 
-        public ResourcesController(IStringLocalizer<SharedResource> localizer)
+    [HttpGet("")]
+    public ActionResult<ResourcesViewModel> Get()
+    {
+        if (!CachedResources.TryGetValue(SharedResource.GetCurrentCultureName(), out ResourcesViewModel? resources))
         {
-            _localizer = localizer;
+            resources = new ResourcesViewModel(_localizer);
+            CachedResources.TryAdd(SharedResource.GetCurrentCultureName(), resources);
         }
 
-        [HttpGet("")]
-        public ActionResult<ResourcesViewModel> Get()
-        {
-            if (!CachedResources.TryGetValue(SharedResource.GetCurrentCultureName(), out ResourcesViewModel? resources))
-            {
-                resources = new ResourcesViewModel(_localizer);
-                CachedResources.TryAdd(SharedResource.GetCurrentCultureName(), resources);
-            }
-
-            return Ok(resources);
-        }
+        return Ok(resources);
     }
 }

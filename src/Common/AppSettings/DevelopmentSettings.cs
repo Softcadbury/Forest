@@ -1,9 +1,8 @@
-﻿namespace Common.AppSettings
-{
-    public class DevelopmentSettings
-    {
-        public const string SectionName = "Development";
+﻿namespace Common.AppSettings;
 
-        public bool EnableTypeScriptServicesGeneration { get; set; }
-    }
+public class DevelopmentSettings
+{
+    public const string SectionName = "Development";
+
+    public bool EnableTypeScriptServicesGeneration { get; set; }
 }
