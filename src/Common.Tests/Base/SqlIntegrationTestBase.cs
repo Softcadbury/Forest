@@ -9,12 +9,12 @@ using Repository.Entities;
 
 public abstract class SqlIntegrationTestBase : IDisposable
 {
-    public CurrentContext CurrentContext { get; private set; } = null!;
+    protected CurrentContext CurrentContext { get; private set; } = null!;
 
-    public ApplicationDbContext ApplicationDbContext { get; private set; } = null!;
+    protected ApplicationDbContext ApplicationDbContext { get; private set; } = null!;
 
     [SetUp]
-    public async Task SetUp()
+    public async Task SetUpSqlIntegrationTestBase()
     {
         DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
         var serviceCollection = new ServiceCollection();

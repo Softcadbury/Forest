@@ -1,5 +1,3 @@
-#pragma warning disable SA1516 // Elements should be separated by blank line
-
 using Microsoft.EntityFrameworkCore;
 using Repository.Contexts;
 using Web.Configurations;
@@ -31,5 +29,3 @@ var context = services.GetRequiredService<ApplicationDbContext>();
 context.Database.Migrate();
 
 app.Run();
-
-#pragma warning restore SA1516 // Elements should be separated by blank line
