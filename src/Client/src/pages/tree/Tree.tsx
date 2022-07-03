@@ -1,15 +1,12 @@
-import { CardContent, Card, Button, Typography, Grid } from "@mui/material";
+import { CardContent, Card, Typography, Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useQueryStore } from "../../stores/queryStore";
 import { useCallback } from "react";
 import { NodePost } from "../../services/generatedServices";
-import AddIcon from "@mui/icons-material/Add";
-import { useResources } from "../../hooks";
 import { Loader } from "../../common/components";
+import { TreeHeader } from "../../common/components/headers/TreeHeader";
 
 const Tree: React.FC = () => {
-    const resources = useResources();
-
     var params = useParams<{ id: string }>();
     const { treeStore, treeNodeStore } = useQueryStore();
     const { data: tree } = treeStore.useGet(params.id);
@@ -25,12 +22,7 @@ const Tree: React.FC = () => {
 
     return (
         <div>
-            <Typography variant="h6" sx={{ marginBottom: 1 }}>
-                {tree.label}
-                <Button onClick={onClickCreateNode} sx={{ marginLeft: 3 }} startIcon={<AddIcon />}>
-                    {resources.common_Add}
-                </Button>
-            </Typography>
+            <TreeHeader onAdd={onClickCreateNode} treeLabel={tree.label} />
             <Grid container spacing={2}>
                 {nodes.map((node) => (
                     <Grid item xs={3} md={3} key={node.id}>

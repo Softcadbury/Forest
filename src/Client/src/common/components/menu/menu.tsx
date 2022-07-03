@@ -5,7 +5,7 @@ export const Menu: React.FC = () => {
         <Box>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div">
+                    <Typography variant="h6" component="a" href="/" sx={{ color: "inherit", textDecoration: "none" }}>
                         Forest
                     </Typography>
                 </Toolbar>

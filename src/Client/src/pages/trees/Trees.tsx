@@ -1,14 +1,11 @@
 import { useQueryStore } from "../../stores/queryStore";
-import { Button, CardContent, Card, Grid, Typography } from "@mui/material";
-import { useResources } from "../../hooks/useResources";
-import AddIcon from "@mui/icons-material/Add";
+import { Button, CardContent, Card, Grid } from "@mui/material";
 import { useBooleanState } from "../../hooks";
 import { Loader } from "../../common/components";
 import AddTreeModal from "./modals/AddTreeModal";
+import { TreeHeader } from "../../common/components/headers/TreeHeader";
 
 const Trees: React.FC = () => {
-    const resources = useResources();
-
     const { treeStore } = useQueryStore();
     const { data: trees } = treeStore.useGetAll();
 
@@ -18,12 +15,7 @@ const Trees: React.FC = () => {
 
     return (
         <div>
-            <Typography variant="h6" sx={{ marginBottom: 1 }}>
-                {resources.common_Trees}
-                <Button onClick={showAddTreeModal} sx={{ marginLeft: 3 }} startIcon={<AddIcon />}>
-                    {resources.common_Add}
-                </Button>
-            </Typography>
+            <TreeHeader onAdd={showAddTreeModal} />
             <Grid container spacing={2}>
                 {trees.map((tree) => (
                     <Grid item xs={3} md={3} key={tree.id}>
