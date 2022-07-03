@@ -17,7 +17,7 @@ const Trees: React.FC = () => {
     if (!trees) return <Loader />;
 
     return (
-        <>
+        <div>
             <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 {resources.common_Trees}
                 <Button onClick={showAddTreeModal} sx={{ marginLeft: 3 }} startIcon={<AddIcon />}>
@@ -36,7 +36,7 @@ const Trees: React.FC = () => {
                 ))}
             </Grid>
             <AddTreeModal isOpen={isAddTreeModalOpen} handleClose={hideAddTreeModal} />
-        </>
+        </div>
     );
 };
 

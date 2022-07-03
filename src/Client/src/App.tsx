@@ -1,6 +1,6 @@
 import { Box, Container, GlobalStyles } from "@mui/material";
 import { Fragment, lazy, Suspense } from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Loader, Menu } from "./common/components";
 import { AuthenticationProvider } from "./common/providers/AuthenticationProvider";
 import { ResourcesProvider } from "./common/providers/ResourcesProvider";
@@ -23,17 +23,11 @@ const App: React.FC = () => {
                         <Suspense fallback={<Loader />}>
                             <Container>
                                 <Box padding={5}>
-                                    <Switch>
-                                        <Route path="/trees/:id">
-                                            <Tree />
-                                        </Route>
-                                        <Route path="/trees">
-                                            <Trees />
-                                        </Route>
-                                        <Route exact path="/">
-                                            <Trees />
-                                        </Route>
-                                    </Switch>
+                                    <Routes>
+                                        <Route path="/trees/:id" element={<Tree />} />
+                                        <Route path="/trees" element={<Trees />} />
+                                        <Route path="*" element={<Trees />} />
+                                    </Routes>
                                 </Box>
                             </Container>
                         </Suspense>

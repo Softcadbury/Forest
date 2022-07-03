@@ -1,5 +1,5 @@
 import { CardContent, Card, Button, Typography, Grid } from "@mui/material";
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQueryStore } from "../../stores/queryStore";
 import { useCallback } from "react";
 import { NodePost } from "../../services/generatedServices";
@@ -8,13 +8,11 @@ import { useResources } from "../../hooks";
 import { Loader } from "../../common/components";
 
 const Tree: React.FC = () => {
-    const match = useRouteMatch<{ id: string }>("/trees/:id");
-    const id = match?.params.id;
-
     const resources = useResources();
 
+    var params = useParams<{ id: string }>();
     const { treeStore, treeNodeStore } = useQueryStore();
-    const { data: tree } = treeStore.useGet(id);
+    const { data: tree } = treeStore.useGet(params.id);
     const { data: nodes } = treeNodeStore.useGetAll(tree?.id);
     const { mutate: onCreateNode } = treeNodeStore.useCreate();
 
@@ -26,7 +24,7 @@ const Tree: React.FC = () => {
     if (!tree || !nodes) return <Loader />;
 
     return (
-        <>
+        <div>
             <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 {tree.label}
                 <Button onClick={onClickCreateNode} sx={{ marginLeft: 3 }} startIcon={<AddIcon />}>
@@ -44,7 +42,7 @@ const Tree: React.FC = () => {
                     </Grid>
                 ))}
             </Grid>
-        </>
+        </div>
     );
 };
 
