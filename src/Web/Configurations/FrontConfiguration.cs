@@ -31,7 +31,7 @@ public static class FrontConfiguration
         {
             if (env.IsDevelopment())
             {
-                spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
+                spa.UseProxyToSpaDevelopmentServer("http://127.0.0.1:5173/");
             }
         });
     }
