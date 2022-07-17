@@ -22,13 +22,16 @@ const useGetPrettyPrint = (treeId: string | undefined): QueryObserverResult<Text
     });
 };
 
-const useCreate = (): UseMutationResult<Tree, unknown, { treeId: string; node: NodePost }, unknown> => {
+const useCreate = (treeId: string): UseMutationResult<Tree, unknown, { node: NodePost }, unknown> => {
     const client = new Client();
     const queryClient = useQueryClient();
 
-    return useMutation(async ({ treeId, node }) => await client.treeNodeCreate(treeId, node), {
+    return useMutation(async ({ node }) => await client.treeNodeCreate(treeId, node), {
         onSuccess: (result: Tree) => {
-            queryClient.setQueryData<Tree[]>(queryStoreKeys.TREE_NODES_GET_ALL, (old) => (old ? [result, ...old] : []));
+            queryClient.setQueryData<Tree[]>([queryStoreKeys.TREE_NODES_GET_ALL, treeId], (old) =>
+                old ? [...old, result] : []
+            );
+            queryClient.invalidateQueries([queryStoreKeys.TREE_NODES_GET_PRETTY_PRINT, treeId]);
         },
         // todo - handle onError
     });

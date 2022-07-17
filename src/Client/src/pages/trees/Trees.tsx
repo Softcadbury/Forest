@@ -2,7 +2,7 @@ import { useQueryStore } from "../../stores/queryStore";
 import { Button, CardContent, Card, Grid } from "@mui/material";
 import { useBooleanState } from "../../hooks";
 import { Loader } from "../../common/components";
-import AddTreeModal from "./modals/AddTreeModal";
+import AddTreeModal from "./components/AddTreeModal";
 import { TreeHeader } from "../../common/components/headers/TreeHeader";
 
 const Trees: React.FC = () => {
