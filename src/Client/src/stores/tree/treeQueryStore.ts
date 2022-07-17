@@ -6,7 +6,7 @@ const useGet = (id: string | undefined): QueryObserverResult<Tree> => {
     const client = new Client();
 
     return useQuery({
-        queryKey: queryStoreKeys.TREES_GET,
+        queryKey: [queryStoreKeys.TREES_GET, id],
         queryFn: async () => await client.treeGet(id!),
         enabled: !!id,
     });

@@ -1,13 +1,23 @@
 import { QueryObserverResult, useMutation, UseMutationResult, useQuery, useQueryClient } from "react-query";
-import { Client, NodePost, Tree, TreePost } from "../../services/generatedServices";
+import { Client, NodePost, Tree, Text } from "../../services/generatedServices";
 import queryStoreKeys from "../queryStoreKeys";
 
 const useGetAll = (treeId: string | undefined): QueryObserverResult<Node[]> => {
     const client = new Client();
 
     return useQuery({
-        queryKey: queryStoreKeys.TREE_NODES_GET_ALL,
+        queryKey: [queryStoreKeys.TREE_NODES_GET_ALL, treeId],
         queryFn: async () => await client.treeNodeGetAll(treeId!),
+        enabled: !!treeId,
+    });
+};
+
+const useGetPrettyPrint = (treeId: string | undefined): QueryObserverResult<Text> => {
+    const client = new Client();
+
+    return useQuery({
+        queryKey: [queryStoreKeys.TREE_NODES_GET_PRETTY_PRINT, treeId],
+        queryFn: async () => await client.treeNodeGetPrettyPrint(treeId!),
         enabled: !!treeId,
     });
 };
@@ -24,6 +34,6 @@ const useCreate = (): UseMutationResult<Tree, unknown, { treeId: string; node: N
     });
 };
 
-const treeQueryStore = { useGetAll, useCreate };
+const treeQueryStore = { useGetAll, useGetPrettyPrint, useCreate };
 
 export default treeQueryStore;

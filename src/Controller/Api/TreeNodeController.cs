@@ -4,6 +4,7 @@ using AutoMapper;
 using Common.Misc;
 using Controller.Base;
 using Controller.Helpers;
+using Controller.ViewModels.Common;
 using Controller.ViewModels.Node;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,16 +47,16 @@ public class TreeNodeController : CustomApiControllerBase
     }
 
     [HttpGet("prettyPrint")]
-    public async Task<ActionResult<string>> GetPrettyPrint(Guid treeId)
+    public async Task<ActionResult<TextViewModel>> GetPrettyPrint(Guid treeId)
     {
-        Tree? tree = await _applicationDbContext.Trees.Where(p => p.Id == treeId).SingleOrDefaultAsync();
+        Tree? tree = await _applicationDbContext.Trees.Where(p => p.Id == treeId).Include(p => p.Nodes).SingleOrDefaultAsync();
 
         if (tree == null)
         {
             return NotFound();
         }
 
-        return Ok(TreeHelper.PrettyPrintTree(tree));
+        return Ok(new TextViewModel(TreeHelper.PrettyPrintTree(tree)));
     }
 
     [HttpPost]
