@@ -4,6 +4,12 @@
 
 Application and API to handle trees and nodes. Inspired from https://treelib.readthedocs.io/.
 
+## Screenshot
+
+![alt tag](https://raw.githubusercontent.com/Softcadbury/Forest/master/assets/screenshot1.png)
+
+![alt tag](https://raw.githubusercontent.com/Softcadbury/Forest/master/assets/screenshot2.png)
+
 ## Development
 
 ### How to start the application

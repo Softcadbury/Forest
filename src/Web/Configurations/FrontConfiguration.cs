@@ -26,12 +26,12 @@ public static class FrontConfiguration
         }
 
         app.UseSpaStaticFiles();
-
+ 
         app.UseSpa(spa =>
         {
             if (env.IsDevelopment())
             {
-                spa.UseProxyToSpaDevelopmentServer("http://127.0.0.1:5173/");
+                spa.UseProxyToSpaDevelopmentServer("http://localhost:5173/");
             }
         });
     }
